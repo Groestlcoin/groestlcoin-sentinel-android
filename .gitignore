@@ -5,3 +5,6 @@ app/build/
 build/
 gradle/
 .gradle/
+*.apk
+*.bar
+*.wrn

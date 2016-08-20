@@ -52,7 +52,7 @@
     <string name="options_wipe">Wipe wallet</string>
     <string name="options_wipe2">Wipe this wallet from device.</string>
     <string name="options_units">Units</string>
-    <string name="options_units2">Bitcoin units to display (default GRS).</string>
+    <string name="options_units2">Groestlcoin units to display (default GRS).</string>
     <string name="options_stealth_display">Stealth launcher</string>
     <string name="options_stealth_display2">Remove all traces of Groestlcoin Sentinel from the launcher and home screen. To open your wallet dial **YOUR_PIN_CODE# from the phone dialer. Do you want to define a pin code?</string>
     <string name="options_remote_commands">Remote commands</string>
