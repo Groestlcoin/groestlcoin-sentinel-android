@@ -1,6 +1,7 @@
 package com.samourai.sentinel.api;
 
 import android.content.Context;
+import android.util.Log;
 //import android.util.Log;
 
 import com.samourai.sentinel.SamouraiSentinel;
@@ -56,16 +57,16 @@ public class APIFactory	{
 
         for(int i = 0; i < xpubs.length; i++)   {
             try {
-                StringBuilder url = new StringBuilder(Web.BLOCKCHAIN_DOMAIN);
-                url.append("multiaddr?active=");
+                StringBuilder url = new StringBuilder(Web.BLOCKCHAIN_DOMAIN_API);
+                url.append("xpub2&xpub=");
                 url.append(xpubs[i]);
-//            Log.i("APIFactory", "XPUB:" + url.toString());
+            Log.i("APIFactory", "XPUB:" + url.toString());
                 String response = Web.getURL(url.toString());
-//            Log.i("APIFactory", "XPUB response:" + response);
+            Log.i("APIFactory", "XPUB response:" + response);
                 try {
                     jsonObject = new JSONObject(response);
                     xpub_txs.put(xpubs[i], new ArrayList<Tx>());
-                    parseXPUB(jsonObject, true);
+                    parseXPUB(jsonObject, xpubs[i], true);
                 }
                 catch(JSONException je) {
                     je.printStackTrace();
@@ -87,7 +88,7 @@ public class APIFactory	{
         return jsonObject;
     }
 
-    public void parseXPUB(JSONObject jsonObject, boolean complete) throws JSONException  {
+    public void parseXPUB(JSONObject jsonObject, String xpub, boolean complete) throws JSONException  {
 
         if(jsonObject != null)  {
 
@@ -146,6 +147,8 @@ public class APIFactory	{
                     long input_amount = 0L;
                     long output_amount = 0L;
 
+                    boolean manual_ammount = false;
+
                     if(txObj.has("block_height"))  {
                         height = txObj.getLong("block_height");
 //                        Log.i("APIFactory", "height " + height);
@@ -158,7 +161,9 @@ public class APIFactory	{
                     }
                     if(txObj.has("result"))  {
                         amount = txObj.getLong("result");
-                    }
+                        if(amount == 0)
+                            manual_ammount = true;
+                    } else manual_ammount = true;
                     if(txObj.has("time"))  {
                         ts = txObj.getLong("time");
                     }
@@ -168,15 +173,17 @@ public class APIFactory	{
                         JSONObject inputObj = null;
                         for(int j = 0; j < inputArray.length(); j++)  {
                             inputObj = (JSONObject)inputArray.get(j);
-                            if(inputObj.has("prev_out"))  {
-                                JSONObject prevOutObj = (JSONObject)inputObj.get("prev_out");
+                            if(true/*inputObj.has("prev_out")*/)  {
+                                JSONObject prevOutObj = inputObj; //(JSONObject)inputObj.get("prev_out"); -- chainz not habe prev_out
                                 input_amount += prevOutObj.getLong("value");
                                 if(prevOutObj.has("xpub"))  {
                                     JSONObject xpubObj = (JSONObject)prevOutObj.get("xpub");
-                                    addr = (String)xpubObj.get("m");
+                                    addr = xpubObj.has("m") ? (String)xpubObj.get("m") : xpub;
                                     input_xpub = addr;
+                                    if(manual_ammount) amount-=prevOutObj.getLong("value");
                                 }
                                 else  {
+
                                     if(SamouraiSentinel.getInstance(context).getLegacy().containsKey((String)prevOutObj.get("addr")))    {
 //                                        Log.i("APIFactory:", "legacy tx " + (String)prevOutObj.get("addr"));
                                         addr = (String)prevOutObj.get("addr");
@@ -197,13 +204,15 @@ public class APIFactory	{
                             output_amount += outObj.getLong("value");
                             if(outObj.has("xpub"))  {
                                 JSONObject xpubObj = (JSONObject)outObj.get("xpub");
-                                addr = (String)xpubObj.get("m");
-                                if(input_xpub != null && !input_xpub.equals(addr))    {
+                                addr = xpubObj.has("m") ? (String)xpubObj.get("m") : xpub;
+                                if(input_xpub == null || (input_xpub != null && !input_xpub.equals(addr)))    {
                                     output_xpub = addr;
                                     move_amount = outObj.getLong("value");
                                 }
+                                if(manual_ammount) amount+=outObj.getLong("value");
                             }
                             else  {
+
                                 if(SamouraiSentinel.getInstance(context).getLegacy().containsKey((String)outObj.get("addr")))    {
 //                                    Log.i("APIFactory:", "legacy tx " + (String)outObj.get("addr"));
                                     addr = (String)outObj.get("addr");

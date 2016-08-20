@@ -71,7 +71,7 @@ public class InitActivity extends Activity {
 
                 String strResult = data.getStringExtra(ZBarConstants.SCAN_RESULT);
 
-                if(strResult.startsWith("bitcoin:"))    {
+                if(strResult.startsWith("groestlcoin:"))    {
                     strResult = strResult.substring(8);
                 }
                 if(strResult.indexOf("?") != -1)   {

@@ -36,14 +36,14 @@ public class SettingsActivity extends PreferenceActivity	{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Preference aboutPref = (Preference) findPreference("about");
-        aboutPref.setSummary("Sentinel," + " " + getResources().getString(R.string.version_name));
+        aboutPref.setSummary("Groestlcoin Sentinel," + " " + getResources().getString(R.string.version_name));
         aboutPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
 
                 new AlertDialog.Builder(SettingsActivity.this)
                         .setIcon(R.drawable.ic_launcher)
                         .setTitle(R.string.app_name)
-                        .setMessage("Sentinel," + " " + getResources().getString(R.string.version_name))
+                        .setMessage("Groestlcoin Sentinel," + " " + getResources().getString(R.string.version_name))
                         .setCancelable(false)
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
@@ -148,7 +148,7 @@ public class SettingsActivity extends PreferenceActivity	{
         final int sel = PrefsUtil.getInstance(SettingsActivity.this).getValue(PrefsUtil.BTC_UNITS, 0);
 
         new AlertDialog.Builder(SettingsActivity.this)
-                .setTitle("Select displayable Bitcoin units")
+                .setTitle("Select displayable Groestlcoin units")
 //                .setCancelable(false)
                 .setSingleChoiceItems(units, sel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {

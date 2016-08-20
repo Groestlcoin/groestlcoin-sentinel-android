@@ -209,7 +209,7 @@ public class XPUBListActivity extends Activity {
             if(data != null && data.getStringExtra(ZBarConstants.SCAN_RESULT) != null)	{
                 String strResult = data.getStringExtra(ZBarConstants.SCAN_RESULT);
 
-                if(strResult.startsWith("bitcoin:"))    {
+                if(strResult.startsWith("groestlcoin:"))    {
                     strResult = strResult.substring(8);
                 }
                 if(strResult.indexOf("?") != -1)   {

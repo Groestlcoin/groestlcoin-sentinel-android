@@ -2,9 +2,9 @@
 <resources>
 
     <string name="version_name">2.0.4</string>
-    <string name="app_name">Sentinel</string>
+    <string name="app_name">Groestlcoin Sentinel</string>
 
-    <string name="new_version_message">Welcome to Sentinel\n\nSentinel is your deposit only bitcoin wallet. Sentinel cannot send bitcoin. Scan any XPUB and Sentinel will keep watch, alerting you of any new incoming transactions and allowing you to create new addresses so you can receive bitcoin on your mobile device.\n\nSentinel is the easiest and most secure way to keep track and receive payments to your cold storage wallet.\n\nSentinel can\'t send bitcoin out of your wallet, and your private keys are never communicated with Sentinel in any way.</string>
+    <string name="new_version_message">Welcome to Groestlcoin Sentinel\n\nGroestlcoin Sentinel is your deposit only Groestlcoin wallet. Groestlcoin Sentinel cannot send Groestlcoin. Scan any XPUB and Groestlcoin Sentinel will keep watch, alerting you of any new incoming transactions and allowing you to create new addresses so you can receive Groestlcoin on your mobile device.\n\nGroestlcoin Sentinel is the easiest and most secure way to keep track and receive payments to your cold storage wallet.\n\nGroestlcoin Sentinel can\'t send Groestlcoin out of your wallet, and your private keys are never communicated with Groestlcoin Sentinel in any way.</string>
 
     <string name="alpha_create_wallet">This is an alpha product and things may go wrong, please write the following 12 words down and keep them safe. As long as you have these 12 words and the passphrase you just created you will never lose access to your funds.</string>
     <string name="alpha_create_confirm_backup">I\'ve written down my recovery words</string>
@@ -29,7 +29,7 @@
     <string name="action_sweep">Sweep cold storage</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="about_us">About Sentinel</string>
+    <string name="about_us">About Groestlcoin Sentinel</string>
     <string name="about_title">About us</string>
 
     <string name="ok">Ok</string>
@@ -39,7 +39,7 @@
     <string name="options_cat_stealth">Stealth settings</string>
     <string name="options_cat_remote">Remote settings</string>
     <string name="options_cat_wallet">Your wallet</string>
-    <string name="options_cat_other">Sentinel</string>
+    <string name="options_cat_other">Groestlcoin Sentinel</string>
 
     <string name="options_mnemonic">Show mnemonic</string>
     <string name="options_mnemonic2">Show mnemonic for this wallet.</string>
@@ -52,9 +52,9 @@
     <string name="options_wipe">Wipe wallet</string>
     <string name="options_wipe2">Wipe this wallet from device.</string>
     <string name="options_units">Units</string>
-    <string name="options_units2">Bitcoin units to display (default BTC).</string>
+    <string name="options_units2">Bitcoin units to display (default GRS).</string>
     <string name="options_stealth_display">Stealth launcher</string>
-    <string name="options_stealth_display2">Remove all traces of Sentinel from the launcher and home screen. To open your wallet dial **YOUR_PIN_CODE# from the phone dialer. Do you want to define a pin code?</string>
+    <string name="options_stealth_display2">Remove all traces of Groestlcoin Sentinel from the launcher and home screen. To open your wallet dial **YOUR_PIN_CODE# from the phone dialer. Do you want to define a pin code?</string>
     <string name="options_remote_commands">Remote commands</string>
     <string name="options_remote_commands2">Allow stealth remote commands via SMS.</string>
     <string name="options_currency">Street price</string>
@@ -91,13 +91,13 @@
     <string name="copied_to_clipboard">Copied to clipboard</string>
     <string name="send_payment_code">Send payment code</string>
 
-    <string name="ask_you_sure_exit">Are you sure you want to exit Sentinel?</string>
+    <string name="ask_you_sure_exit">Are you sure you want to exit Groestlcoin Sentinel?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
     <string name="sim_warning">Your Samourai Wallet device now has a different SIM card corresponding to incoming number of this text message.</string>
 
-    <string name="pin_5_8">Please create a PIN code between 5 and 8 characters. You will need this PIN to access Sentinel on this device.</string>
+    <string name="pin_5_8">Please create a PIN code between 5 and 8 characters. You will need this PIN to access Groestlcoin Sentinel on this device.</string>
     <string name="pin_5_8_confirm">Please confirm 5-8 digit PIN code</string>
     <string name="pin_error">Pin code error</string>
     <string name="no_internet">No Internet connectivity. Please try again.</string>
@@ -130,7 +130,7 @@
     <string name="scan">Scan</string>
     <string name="manual">Manual</string>
     <string name="amount_to_send">Amount to send</string>
-    <string name="send_to">Send to (BTC address)</string>
+    <string name="send_to">Send to (GRS address)</string>
     <string name="scan_error">Scan error</string>
 
     <string name="tx_ok">Transaction sent</string>
@@ -147,24 +147,24 @@
     <string name="sure_to_delete">Are you sure you want to delete this entry?</string>
     <string name="wallet_erased">Wallet erased from device.</string>
 
-    <string name="enter_xpub">Enter XPUB or bitcoin address.</string>
-    <string name="xpub_error">There was an error creating a wallet from your XPUBs/bitcoin addresses. Please try again.</string>
-    <string name="xpub_absent">There are no XPUBs/bitcoin addresses for creating a wallet. Go to settings to configure Sentinel.</string>
+    <string name="enter_xpub">Enter XPUB or Groestlcoin address.</string>
+    <string name="xpub_error">There was an error creating a wallet from your XPUBs/Groestlcoin addresses. Please try again.</string>
+    <string name="xpub_absent">There are no XPUBs/Groestlcoin addresses for creating a wallet. Go to settings to configure Groestlcoin Sentinel.</string>
 
     <string name="create_pin">Create PIN code</string>
     <string name="confirm_pin">Confirm PIN code</string>
     <string name="entering_stealth">Applying PIN code. Please wait.</string>
 
-    <string name="error_entering_stealth">Error entering app via stealth launch. If the error persists, reinstall Sentinel.</string>
-    <string name="error_activating_stealth">Error activating stealth launch. If the error persists, reinstall Sentinel.</string>
+    <string name="error_entering_stealth">Error entering app via stealth launch. If the error persists, reinstall Groestlcoin Sentinel.</string>
+    <string name="error_activating_stealth">Error activating stealth launch. If the error persists, reinstall Groestlcoin Sentinel.</string>
 
     <string name="options_scramble_pin">Scramble PIN entry</string>
-    <string name="options_scramble_pin2">Use scrambled numerical pad to enter Sentinel.</string>
+    <string name="options_scramble_pin2">Use scrambled numerical pad to enter Groestlcoin Sentinel.</string>
     <string name="options_pin">User PIN code</string>
-    <string name="options_pin2">User PIN code to enter Sentinel.</string>
+    <string name="options_pin2">User PIN code to enter Groestlcoin Sentinel.</string>
 
     <string name="shapeshift">ShapeShift</string>
-    <string name="xpub">XPUB or bitcoin address</string>
+    <string name="xpub">XPUB or Groestlcoin address</string>
     <string name="watchlist">Watchlist</string>
     <string name="deposit">Deposit</string>
 
@@ -184,7 +184,7 @@
     <string name="select_account">You must select an account</string>
 
     <string name="watchlist_title">Add new</string>
-    <string name="watchlist_message">Add a new XPUB or bitcoin address to begin tracking. Please select...</string>
+    <string name="watchlist_message">Add a new XPUB or Groestlcoin address to begin tracking. Please select...</string>
     <string name="total_title">Total</string>
     <string name="deposit_into">Deposit into...</string>
 

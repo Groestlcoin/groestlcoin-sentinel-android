@@ -43,7 +43,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Add any Bitcoin address or XPUB and Sentinel will be activated"
+            android:text="Add any Groestlcoin address or XPUB and Groestlcoin Sentinel will be activated"
             android:id="@+id/textView3"
             android:gravity="center_horizontal"
             android:layout_above="@+id/start"
