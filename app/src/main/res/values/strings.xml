@@ -58,7 +58,7 @@
     <string name="options_remote_commands">Remote commands</string>
     <string name="options_remote_commands2">Allow stealth remote commands via SMS.</string>
     <string name="options_currency">Street price</string>
-    <string name="options_currency2">The fiat price from localbitcoins.com.</string>
+    <string name="options_currency2">The fiat price from the selected exchange.</string>
     <string name="options_blockexplorer">Block explorer</string>
     <string name="options_blockexplorer2">The block explorer used to view transaction details.</string>
     <string name="options_sim_switch">SIM switch defense</string>

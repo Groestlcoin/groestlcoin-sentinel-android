@@ -15,6 +15,9 @@ public class Web	{
     public static final String LBC_EXCHANGE_URL = "https://localbitcoins.com/bitcoinaverage/ticker-all-currencies/";
     public static final String BTCe_EXCHANGE_URL = "https://btc-e.com/api/3/ticker/";
     public static final String BFX_EXCHANGE_URL = "https://api.bitfinex.com/v1/pubticker/btcusd";
+    public static final String POLONIEX_EXCHANGE_URL = "https://poloniex.com/public?command=returnTradeHistory&currencyPair=BTC_GRS";
+    public static final String BITTREX_EXCHANGE_URL = "https://bittrex.com/api/v1.1/public/getmarkethistory?market=BTC-GRS&count=25 ";
+
 
     private static final int DefaultRequestRetry = 2;
     private static final int DefaultRequestTimeout = 60000;

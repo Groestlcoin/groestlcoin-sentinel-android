@@ -398,6 +398,26 @@ public class MainActivity2 extends Activity {
                     e.printStackTrace();
                 }
 
+                response = null;
+                try {
+                    response = Web.getURL(Web.POLONIEX_EXCHANGE_URL);
+                    ExchangeRateFactory.getInstance(MainActivity2.this).setDataPoloniex(response);
+                    ExchangeRateFactory.getInstance(MainActivity2.this).parsePoloniex();
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                }
+
+                response = null;
+                try {
+                    response = Web.getURL(Web.BITTREX_EXCHANGE_URL);
+                    ExchangeRateFactory.getInstance(MainActivity2.this).setDataBittrex(response);
+                    ExchangeRateFactory.getInstance(MainActivity2.this).parseBittrex();
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                }
+
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
