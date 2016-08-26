@@ -78,13 +78,13 @@ public class ExchangeRateFactory	{
     public double getAvgPrice(String currency)	 {
        // int fxSel = PrefsUtil.getInstance(context).getValue(PrefsUtil.CURRENT_EXCHANGE_SEL, 0);
         HashMap<String,Double> fxRates = null;
-        if(!fxRatesBTCe.isEmpty() && fxRatesBTCe.get(currency) > 0.0)	 {
+        if(!fxRatesBTCe.isEmpty() && fxRatesBTCe.containsKey(currency) && fxRatesBTCe.get(currency) > 0.0)	 {
             fxRates = fxRatesBTCe;
         }
-        else if(!fxRatesBFX.isEmpty() && fxRatesBFX.get(currency) > 0.0)	 {
+        else if(!fxRatesBFX.isEmpty() && fxRatesBFX.containsKey(currency) && fxRatesBFX.get(currency) > 0.0)	 {
             fxRates = fxRatesBFX;
         }
-        else if(!fxRatesLBC.isEmpty() && fxRatesLBC.get(currency) > 0.0)	 {
+        else if(!fxRatesLBC.isEmpty() && fxRatesLBC.containsKey(currency) && fxRatesLBC.get(currency) > 0.0)	 {
             fxRates = fxRatesLBC;
         }
 

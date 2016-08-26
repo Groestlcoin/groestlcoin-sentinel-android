@@ -210,7 +210,7 @@ public class XPUBListActivity extends Activity {
                 String strResult = data.getStringExtra(ZBarConstants.SCAN_RESULT);
 
                 if(strResult.startsWith("groestlcoin:"))    {
-                    strResult = strResult.substring(8);
+                    strResult = strResult.substring(12);
                 }
                 if(strResult.indexOf("?") != -1)   {
                     strResult = strResult.substring(0, strResult.indexOf("?"));
