@@ -329,7 +329,7 @@ public class MainActivity2 extends Activity {
                                 exchangeRateThread();
                             }
 
-                            Intent intent = new Intent("com.samourai.wallet.BalanceFragment.REFRESH");
+                            Intent intent = new Intent(BalanceFragment.ACTION_INTENT);
                             LocalBroadcastManager.getInstance(MainActivity2.this).sendBroadcast(intent);
                         }
                     });

@@ -12,9 +12,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -353,6 +355,17 @@ public class APIFactory	{
                     } else manual_ammount = true;
                     if(txObj.has("time"))  {
                         //ts = txObj.getLong("time");
+                    }
+                    else if(txObj.has("time_utc"))
+                    {
+                        String _ts = txObj.getString("time_utc");
+                        try{
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
+                            Date parsedDate = dateFormat.parse(_ts);
+                            ts = parsedDate.getTime()/1000;
+                        }catch(Exception e){//this generic but you can control another types of exception
+                            //look the origin of excption
+                        }
                     }
 
                     if(txObj.has("inputs"))  {
