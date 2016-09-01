@@ -31,6 +31,20 @@ android {
         javaMaxHeapSize "4g"
         //preDexLibraries = false
     }
+    productFlavors {
+        android {
+
+        }
+        blackberry {
+            targetSdkVersion 19
+            applicationIdSuffix ".blackberry"
+        }
+    }
+
+    compileOptions {
+        targetCompatibility 1.7
+        sourceCompatibility 1.7
+    }
 }
 def localMavenRepo = 'file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath
 repositories {
@@ -38,7 +52,8 @@ repositories {
 }
 dependencies {
     //compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:support-v4:21.0.3'
+    androidCompile 'com.android.support:support-v4:21.0.3'
+    blackberryCompile 'com.android.support:support-v4:19.0.3'
     compile 'com.baoyz.swipemenulistview:library:1.2.1'
     compile files('libs/commons-codec-1.10.jar')
     //compile files('libs/core-1.51.0.0.jar')
