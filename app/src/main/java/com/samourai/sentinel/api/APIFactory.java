@@ -327,6 +327,7 @@ public class APIFactory	{
                     long height = 0L;
                     long amount = 0L;
                     long ts = 0L;
+                    long confirmations = 0;
                     String hash = null;
                     String addr = address;
                     String _addr = null;
@@ -344,6 +345,10 @@ public class APIFactory	{
                     }
                     else  {
                         height = -1L;  // 0 confirmations
+                        if(txObj.has("confirmations"))
+                        {
+                            confirmations = txObj.getLong("confirmations");
+                        }
                     }
                     if(txObj.has("hash"))  {
                         hash = (String)txObj.get("hash");
@@ -446,7 +451,7 @@ public class APIFactory	{
                         }
                         else    {
 
-                            Tx tx = new Tx(hash, _addr, amount, ts, (latest_block > 0L && height > 0L) ? (latest_block - height) + 1 : 0);
+                            Tx tx = new Tx(hash, _addr, amount, ts, confirmations);
 
                             if(!xpub_txs.containsKey(addr))  {
                                 xpub_txs.put(addr, new ArrayList<Tx>());
