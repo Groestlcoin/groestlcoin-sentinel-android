@@ -1,0 +1,28 @@
+﻿Keeping track of your Groestlcoin Wallets has never been easier.
+Sentinel is the easiest and fastest way to keep track of, and receive payments into, your offline cold storage or hardware Groestlcoin wallet. Sentinel is compatible with any standard Groestlcoin address or BIP 44 XPUB (Extended Public Key) such as those created by Groestlcoin Wallet, Groestlcoin Electrum GRS Wallet and others.
+
+Highlights of the Groestlcoin Sentinel Watch Only Groestlcoin Wallet
+
+
+→ Track multiple XPUB's or Addresses
+Add multiple XPUB's or addresses to your Sentinel Watchlist to keep track of balances, transactions, and accept payments into any added wallet or address.
+
+
+→ Deterministically derives Groestlcoin Addresses
+Deterministically derive new Groestlcoin addresses associated with your added wallets without needing access or knowledge to your private keys.
+
+
+→ Shareable QR codes
+Create payment request QR codes with address and amount encoded directly into the image. Share with anyone or any app directly from Sentinel.
+
+
+→ The most popular Fiat currencies
+Sentinel can convert GRS to your local currency. Supported currencies are: USD, GBP, CNY, RUB
+
+
+→ Popular Exchanges
+Groestlcoin Sentinel can pull the current GRS price from Bittrex.
+
+
+→ Secure PIN Code protection
+Add a secure PIN code to protect access to Sentinel. Optionally turn on PIN Scramble to help thwart against keylogger attacks.
