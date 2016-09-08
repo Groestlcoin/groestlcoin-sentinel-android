@@ -8,8 +8,8 @@ android {
         applicationId "hashengineering.groestlcoin.samourai.sentinel"
         minSdkVersion 14
         targetSdkVersion 21
-        versionCode 116
-        versionName "2.0.4g4"
+        versionCode 21117
+        versionName "2.0.5"
         multiDexEnabled true
     }
     buildTypes {
@@ -37,7 +37,7 @@ android {
         }
         blackberry {
             targetSdkVersion 19
-            applicationIdSuffix ".blackberry"
+            versionCode 19117
         }
     }
 
