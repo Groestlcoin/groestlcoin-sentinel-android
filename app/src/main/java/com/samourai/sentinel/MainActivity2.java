@@ -398,7 +398,7 @@ public class MainActivity2 extends Activity {
                     e.printStackTrace();
                 }
 
-                response = null;
+                /*response = null;
                 try {
                     response = Web.getURL(Web.POLONIEX_EXCHANGE_URL);
                     ExchangeRateFactory.getInstance(MainActivity2.this).setDataPoloniex(response);
@@ -406,7 +406,7 @@ public class MainActivity2 extends Activity {
                 }
                 catch(Exception e) {
                     e.printStackTrace();
-                }
+                }*/
 
                 response = null;
                 try {

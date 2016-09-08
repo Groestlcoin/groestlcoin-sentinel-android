@@ -208,12 +208,12 @@ public class SettingsActivity extends PreferenceActivity	{
         final int fxSel = PrefsUtil.getInstance(SettingsActivity.this).getValue(PrefsUtil.CURRENT_EXCHANGE_SEL, 0);
 
         final String[] currencies;
-        if(fxSel == 1)	{
-            currencies = com.samourai.sentinel.util.ExchangeRateFactory.getInstance(this).getCurrencyLabelsBTCe();
-        }
-        else	{
+        //if(fxSel == -1)	{
+        //    currencies = com.samourai.sentinel.util.ExchangeRateFactory.getInstance(this).getCurrencyLabelsBTCe();
+        //}
+        //else	{
             currencies = com.samourai.sentinel.util.ExchangeRateFactory.getInstance(this).getCurrencyLabels();
-        }
+        //}
 
         new AlertDialog.Builder(SettingsActivity.this)
                 .setTitle(R.string.options_currency)

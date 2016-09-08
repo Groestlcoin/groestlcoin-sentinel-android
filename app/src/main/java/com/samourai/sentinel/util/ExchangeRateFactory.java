@@ -51,7 +51,7 @@ public class ExchangeRateFactory	{
     };
 
     private static String[] exchangeLabels = {
-            "Poloniex",
+            //"Poloniex",
             "Bittrex",
     };
 
@@ -102,12 +102,12 @@ public class ExchangeRateFactory	{
     public double getAvgGRSPrice(String currency)	 {
         int fxSel = PrefsUtil.getInstance(context).getValue(PrefsUtil.CURRENT_EXCHANGE_SEL, 0);
         HashMap<String,Double> fxRates = null;
-        if(fxSel == 0)	 {
-            fxRates = fxPoloniex;
-        }
-        else	 {
+       // if(fxSel == 0)	 {
+       //     fxRates = fxPoloniex;
+       // }
+        //else	 {
             fxRates = fxBittrex;
-        }
+        //}
 
         if(fxRates.get(currency) != null && fxRates.get(currency) > 0.0)	 {
             PrefsUtil.getInstance(context).setValue("CANNED_" + currency, Double.toString(fxRates.get(currency)));
