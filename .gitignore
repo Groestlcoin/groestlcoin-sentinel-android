@@ -8,3 +8,4 @@ gradle/
 *.apk
 *.bar
 *.wrn
+projectFilesBackup/

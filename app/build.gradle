@@ -8,7 +8,7 @@ android {
         applicationId "hashengineering.groestlcoin.samourai.sentinel"
         minSdkVersion 21
         targetSdkVersion 21
-        versionCode 21117
+        versionCode 21119
         versionName "2.0.5"
         multiDexEnabled true
     }
@@ -37,8 +37,8 @@ android {
         }
         blackberry {
             minSdkVersion 14
-            targetSdkVersion 19
-            versionCode 19117
+            targetSdkVersion 17
+            versionCode 19119
         }
     }
 
