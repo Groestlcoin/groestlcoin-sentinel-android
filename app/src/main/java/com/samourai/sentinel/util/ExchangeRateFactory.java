@@ -20,13 +20,13 @@ public class ExchangeRateFactory	{
     private static String strDataLBC = null;
     private static String strDataBTCe = null;
     private static String strDataBFX = null;
-    private static String strPoloniex = null;
+    private static String strCryptopia = null;
     private static String strBittrex = null;
 
     private static HashMap<String,Double> fxRatesLBC = null;
     private static HashMap<String,Double> fxRatesBTCe = null;
     private static HashMap<String,Double> fxRatesBFX = null;
-    private static HashMap<String,Double> fxPoloniex = null;
+    private static HashMap<String,Double> fxCryptopia = null;
     private static HashMap<String,Double> fxBittrex = null;
 //    private static HashMap<String,String> fxSymbols = null;
 
@@ -51,7 +51,7 @@ public class ExchangeRateFactory	{
     };
 
     private static String[] exchangeLabels = {
-            //"Poloniex",
+            "Cryptopia",
             "Bittrex",
     };
 
@@ -66,7 +66,7 @@ public class ExchangeRateFactory	{
             fxRatesBTCe = new HashMap<String,Double>();
             fxRatesBFX = new HashMap<String,Double>();
 //            fxSymbols = new HashMap<String,String>();
-            fxPoloniex = new HashMap<String,Double>();
+            fxCryptopia = new HashMap<String,Double>();
             fxBittrex = new HashMap<String,Double>();
 
             instance = new ExchangeRateFactory();
@@ -102,12 +102,12 @@ public class ExchangeRateFactory	{
     public double getAvgGRSPrice(String currency)	 {
         int fxSel = PrefsUtil.getInstance(context).getValue(PrefsUtil.CURRENT_EXCHANGE_SEL, 0);
         HashMap<String,Double> fxRates = null;
-       // if(fxSel == 0)	 {
-       //     fxRates = fxPoloniex;
-       // }
-        //else	 {
+        if(fxSel == 0)	 {
+            fxRates = fxCryptopia;
+        }
+        else	 {
             fxRates = fxBittrex;
-        //}
+        }
 
         if(fxRates.get(currency) != null && fxRates.get(currency) > 0.0)	 {
             PrefsUtil.getInstance(context).setValue("CANNED_" + currency, Double.toString(fxRates.get(currency)));
@@ -237,14 +237,14 @@ public class ExchangeRateFactory	{
         }
     }
 
-    public void setDataPoloniex(String str)
-    {  strPoloniex = str; }
+    public void setDataCryptopia(String str)
+    {  strCryptopia = str; }
 
     public void setDataBittrex(String str)
     {  strBittrex = str; }
 
-    public void parsePoloniex()	 {
-           getPoloniex();
+    public void parseCryptopia()	 {
+           getCryptopia();
 
     }
 
@@ -253,9 +253,10 @@ public class ExchangeRateFactory	{
 
     }
 
-    private void getPoloniex()	 {
+    private void getCryptopia()	 {
         try {
-            JSONArray recenttrades = new JSONArray(strPoloniex);
+            JSONObject result = new JSONObject(strCryptopia);
+            JSONArray recenttrades = result.getJSONArray("Data");
 
             double btcTraded = 0.0;
             double coinTraded = 0.0;
@@ -264,19 +265,19 @@ public class ExchangeRateFactory	{
             {
                 JSONObject trade = (JSONObject)recenttrades.get(i);
 
-                btcTraded += trade.getDouble("total");
-                coinTraded += trade.getDouble("amount");
+                btcTraded += trade.getDouble("Total");
+                coinTraded += trade.getDouble("Amount");
 
             }
 
             Double averageTrade = btcTraded / coinTraded;
 
-            fxPoloniex.put("BTC", Double.valueOf(averageTrade));
+            fxCryptopia.put("BTC", Double.valueOf(averageTrade));
 //                Log.i("ExchangeRateFactory", "BFX:" + currency + " " + Double.valueOf(avg_price));
 
 
         } catch (JSONException je) {
-            fxPoloniex.put("BTC", Double.valueOf(-1.0));
+            fxCryptopia.put("BTC", Double.valueOf(-1.0));
 //            fxSymbols.put(currency, null);
         }
     }
