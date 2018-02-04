@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class Web	{
 
-    public static final String BLOCKCHAIN_DOMAIN = "http://chainz.cryptoid.info/grs/";
+    public static final String BLOCKCHAIN_DOMAIN = "https://chainz.cryptoid.info/grs/";
     public static final String BLOCKCHAIN_DOMAIN_API = BLOCKCHAIN_DOMAIN + "api.dws?key=d47da926b82e&q=";
 
 	public static final String EXCHANGE_URL = "https://localbitcoins.com/bitcoinaverage/ticker-all-currencies/";
