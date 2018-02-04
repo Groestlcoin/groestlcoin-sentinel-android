@@ -8,9 +8,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -19,7 +23,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.util.Log;
+import android.widget.Toast;
+//import android.util.Log;
 
 import com.dm.zbar.android.scanner.ZBarConstants;
 import com.dm.zbar.android.scanner.ZBarScannerActivity;
@@ -27,12 +32,17 @@ import com.dm.zbar.android.scanner.ZBarScannerActivity;
 import net.i2p.android.ext.floatingactionbutton.FloatingActionButton;
 import net.sourceforge.zbar.Symbol;
 
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.Base58;
 import org.bitcoinj.core.Coin;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -45,12 +55,12 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.samourai.sentinel.api.APIFactory;
 import com.samourai.sentinel.util.AppUtil;
 import com.samourai.sentinel.util.FormatsUtil;
+import com.samourai.sentinel.util.MapUtil;
 import com.samourai.sentinel.util.MonetaryUtil;
 import com.samourai.sentinel.util.PrefsUtil;
+import com.samourai.sentinel.util.Web;
 
 public class XPUBListActivity extends Activity {
-
-    private final static int SCAN_XPUB = 2011;
 
     private SwipeMenuListView xpubList = null;
     private XPUBAdapter xpubAdapter = null;
@@ -60,8 +70,6 @@ public class XPUBListActivity extends Activity {
     private FloatingActionButton actionXPUB = null;
 
     private boolean walletChanged = false;
-
-    private ProgressDialog progress = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +105,7 @@ public class XPUBListActivity extends Activity {
                                         dialog.dismiss();
 
                                         String xpub = xpubs.get(position).second;
-                                        updateXPUBs(xpub, null, true);
+                                        updateXPUBs(xpub, null, true, false);
                                         xpubs = getXPUBS();
                                         if(xpubs.size() == 0)    {
                                             PrefsUtil.getInstance(XPUBListActivity.this).setValue(PrefsUtil.XPUB, "");
@@ -119,6 +127,17 @@ public class XPUBListActivity extends Activity {
 
                     case 1:
 
+                    {
+                        Intent intent = new Intent(XPUBListActivity.this, ShowQRActivity.class);
+                        intent.putExtra("label", xpubs.get(position).first);
+                        intent.putExtra("xpub", xpubs.get(position).second);
+                        startActivity(intent);
+                    }
+
+                    break;
+
+                    case 2:
+
                         final EditText etLabel = new EditText(XPUBListActivity.this);
                         etLabel.setSingleLine(true);
                         etLabel.setHint(getText(R.string.xpub_label));
@@ -135,7 +154,11 @@ public class XPUBListActivity extends Activity {
 
                                         String label = etLabel.getText().toString().trim();
                                         String xpub = xpubs.get(position).second;
-                                        updateXPUBs(xpub, label, false);
+                                        boolean isBIP49 = false;
+                                        if(SamouraiSentinel.getInstance(XPUBListActivity.this).getBIP49().keySet().contains(xpub))    {
+                                            isBIP49 = true;
+                                        }
+                                        updateXPUBs(xpub, label, false, isBIP49);
                                         xpubs = getXPUBS();
                                         xpubAdapter.notifyDataSetChanged();
 
@@ -174,6 +197,17 @@ public class XPUBListActivity extends Activity {
                 // add to menu
                 menu.addMenuItem(deleteItem);
 
+                // create "qr" item
+                SwipeMenuItem qrItem = new SwipeMenuItem(getApplicationContext());
+                // set item background
+                qrItem.setBackground(new ColorDrawable(Color.rgb(0x17, 0x1B, 0x24)));
+                // set item width
+                qrItem.setWidth(180);
+                // set a icon
+                qrItem.setIcon(R.drawable.ic_receive_qr);
+                // add to menu
+                menu.addMenuItem(qrItem);
+
                 // create "edit" item
                 SwipeMenuItem openItem = new SwipeMenuItem(getApplicationContext());
                 // set item background
@@ -195,36 +229,18 @@ public class XPUBListActivity extends Activity {
         actionXPUB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                initDialog();
+                Intent intent = new Intent(XPUBListActivity.this, InsertActivity.class);
+                startActivity(intent);
             }
         });
 
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onResume() {
+        super.onResume();
 
-        if(resultCode == Activity.RESULT_OK && requestCode == SCAN_XPUB)	{
-
-            if(data != null && data.getStringExtra(ZBarConstants.SCAN_RESULT) != null)	{
-                String strResult = data.getStringExtra(ZBarConstants.SCAN_RESULT);
-
-                if(strResult.startsWith("groestlcoin:"))    {
-                    strResult = strResult.substring(12);
-                }
-                if(strResult.indexOf("?") != -1)   {
-                    strResult = strResult.substring(0, strResult.indexOf("?"));
-                }
-
-                addXPUB(strResult);
-            }
-        }
-        else if(resultCode == Activity.RESULT_CANCELED && requestCode == SCAN_XPUB)	{
-            ;
-        }
-        else {
-            ;
-        }
+        AppUtil.getInstance(XPUBListActivity.this).checkTimeOut();
 
     }
 
@@ -253,118 +269,35 @@ public class XPUBListActivity extends Activity {
 
         Pair<String,String> pair = null;
         List<Pair<String,String>> ret = new ArrayList<Pair<String,String>>();
-        Set<String> keys = SamouraiSentinel.getInstance(XPUBListActivity.this).getXPUBs().keySet();
+        HashMap<String,String> map = SamouraiSentinel.getInstance(XPUBListActivity.this).getAllMapSorted();
+        Set<String> keys = map.keySet();
         for(String key : keys)   {
-            pair = new Pair<String,String>(SamouraiSentinel.getInstance(XPUBListActivity.this).getXPUBs().get(key), key);
-            ret.add(pair);
-        }
-
-        keys = SamouraiSentinel.getInstance(XPUBListActivity.this).getLegacy().keySet();
-        for(String key : keys)   {
-            pair = new Pair<String,String>(SamouraiSentinel.getInstance(XPUBListActivity.this).getLegacy().get(key), key);
-            ret.add(pair);
+            if(SamouraiSentinel.getInstance(XPUBListActivity.this).getXPUBs().keySet().contains(key))    {
+                pair = new Pair<String,String>(SamouraiSentinel.getInstance(XPUBListActivity.this).getXPUBs().get(key), key);
+                ret.add(pair);
+            }
+            else if(SamouraiSentinel.getInstance(XPUBListActivity.this).getBIP49().keySet().contains(key))    {
+                pair = new Pair<String,String>(SamouraiSentinel.getInstance(XPUBListActivity.this).getBIP49().get(key), key);
+                ret.add(pair);
+            }
+            else if(SamouraiSentinel.getInstance(XPUBListActivity.this).getLegacy().keySet().contains(key))    {
+                pair = new Pair<String,String>(SamouraiSentinel.getInstance(XPUBListActivity.this).getLegacy().get(key), key);
+                ret.add(pair);
+            }
+            else    {
+                ;
+            }
         }
 
         return ret;
     }
 
-    private void initDialog()	{
-
-        AccessFactory.getInstance(XPUBListActivity.this).setIsLoggedIn(false);
-
-        new AlertDialog.Builder(this)
-                .setTitle(R.string.watchlist_title)
-                .setMessage(R.string.watchlist_message)
-                .setPositiveButton(R.string.manual, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                        final EditText xpub = new EditText(XPUBListActivity.this);
-                        xpub.setSingleLine(true);
-
-                        new AlertDialog.Builder(XPUBListActivity.this)
-                                .setTitle(R.string.watchlist_title)
-                                .setMessage(R.string.enter_xpub)
-                                .setView(xpub)
-                                .setCancelable(false)
-                                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                                        String xpubStr = xpub.getText().toString().trim();
-
-                                        if (xpubStr != null && xpubStr.length() > 0) {
-                                            addXPUB(xpubStr);
-                                        }
-
-                                    }
-
-                                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int whichButton) {
-
-                                ;
-
-                            }
-                        }).show();
-
-                    }
-                })
-                .setNegativeButton(R.string.scan, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                        doScan();
-
-                    }
-                }).show();
-
-    }
-
-    private void doScan() {
-        Intent intent = new Intent(XPUBListActivity.this, ZBarScannerActivity.class);
-        intent.putExtra(ZBarConstants.SCAN_MODES, new int[]{Symbol.QRCODE});
-        startActivityForResult(intent, SCAN_XPUB);
-    }
-
-    private void addXPUB(final String xpub) {
-
-        if(SamouraiSentinel.getInstance(XPUBListActivity.this).getXPUBs().containsKey(xpub))    {
-            return;
-        }
-
-        final EditText etLabel = new EditText(XPUBListActivity.this);
-        etLabel.setSingleLine(true);
-        etLabel.setHint(getText(R.string.xpub_label));
-
-        new AlertDialog.Builder(XPUBListActivity.this)
-                .setTitle(R.string.app_name)
-//                .setMessage(R.string.xpub_label)
-                .setView(etLabel)
-                .setCancelable(false)
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-
-                        String label = etLabel.getText().toString().trim();
-                        updateXPUBs(xpub, label, false);
-                        xpubs = getXPUBS();
-                        xpubAdapter.notifyDataSetChanged();
-
-                        dialog.dismiss();
-
-                    }
-
-                }).setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-
-                ;
-
-            }
-        }).show();
-
-    }
-
-    private void updateXPUBs(String xpub, String label, boolean delete)   {
+    private void updateXPUBs(String xpub, String label, boolean delete, boolean isBIP49)   {
 
         if(delete)    {
-            if(xpub.startsWith("xpub")) {
+            if(xpub.startsWith("xpub") || xpub.startsWith("ypub")) {
                 SamouraiSentinel.getInstance(XPUBListActivity.this).getXPUBs().remove(xpub);
+                SamouraiSentinel.getInstance(XPUBListActivity.this).getBIP49().remove(xpub);
             }
             else if(FormatsUtil.getInstance().isValidBitcoinAddress(xpub)) {
                 SamouraiSentinel.getInstance(XPUBListActivity.this).getLegacy().remove(xpub);
@@ -372,16 +305,52 @@ public class XPUBListActivity extends Activity {
             else {
                 ;
             }
+
+            SamouraiSentinel.getInstance(XPUBListActivity.this).deleteFromPrefs(xpub);
         }
         else    {
-            if (label != null && label.length() > 0) {
-                ;
-            } else {
+            if (label == null || label.length() < 1) {
                 label = getString(R.string.new_account);
             }
 
-            if(xpub.startsWith("xpub")) {
-                SamouraiSentinel.getInstance(XPUBListActivity.this).getXPUBs().put(xpub, label);
+            try {
+                // get depth
+                byte[] xpubBytes = Base58.decodeChecked(xpub);
+                ByteBuffer bb = ByteBuffer.wrap(xpubBytes);
+                bb.getInt();
+                // depth:
+                byte depth = bb.get();
+                switch(depth)    {
+                    // BIP32 account
+                    case 1:
+                        Toast.makeText(XPUBListActivity.this, R.string.bip32_account, Toast.LENGTH_SHORT).show();
+                        break;
+                    // BIP44 account
+                    case 3:
+                        if(isBIP49)    {
+                            Toast.makeText(XPUBListActivity.this, R.string.bip49_account, Toast.LENGTH_SHORT).show();
+                        }
+                        else    {
+                            Toast.makeText(XPUBListActivity.this, R.string.bip44_account, Toast.LENGTH_SHORT).show();
+                        }
+                        break;
+                    default:
+                        // unknown
+                        Toast.makeText(XPUBListActivity.this, XPUBListActivity.this.getText(R.string.unknown_xpub) + ":" + depth, Toast.LENGTH_SHORT).show();
+                }
+            }
+            catch(AddressFormatException afe) {
+                Toast.makeText(XPUBListActivity.this, R.string.base58_error, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            if(xpub.startsWith("xpub") || xpub.startsWith("ypub")) {
+                if(isBIP49)    {
+                    SamouraiSentinel.getInstance(XPUBListActivity.this).getBIP49().put(xpub, label);
+                }
+                else    {
+                    SamouraiSentinel.getInstance(XPUBListActivity.this).getXPUBs().put(xpub, label);
+                }
             }
             else if(FormatsUtil.getInstance().isValidBitcoinAddress(xpub)) {
                 SamouraiSentinel.getInstance(XPUBListActivity.this).getLegacy().put(xpub, label);
@@ -447,8 +416,8 @@ public class XPUBListActivity extends Activity {
             final SpannableStringBuilder strFirst = new SpannableStringBuilder(xpubs.get(position).first + strAmount);
             strFirst.setSpan(new android.text.style.StyleSpan(android.graphics.Typeface.BOLD), 0, strFirst.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             ((TextView)view.findViewById(android.R.id.text1)).setText(strFirst);
-            if(xpubs.get(position).second.startsWith("xpub"))    {
-                ((TextView)view.findViewById(android.R.id.text2)).setText("xpub..." + xpubs.get(position).second.substring(xpubs.get(position).second.length() - 3));
+            if(xpubs.get(position).second.startsWith("xpub") || xpubs.get(position).second.startsWith("ypub"))    {
+                ((TextView)view.findViewById(android.R.id.text2)).setText(xpubs.get(position).second.substring(0, 4) + "..." + xpubs.get(position).second.substring(xpubs.get(position).second.length() - 3));
             }
             else    {
                 ((TextView)view.findViewById(android.R.id.text2)).setText(xpubs.get(position).second);

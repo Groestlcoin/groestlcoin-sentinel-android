@@ -73,6 +73,16 @@ public class AppUtil {
         isInForeground = foreground;
     }
 
+    public boolean isServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String getReceiveQRFilename(){
         return strReceiveQRFilename;
     }
@@ -135,6 +145,20 @@ public class AppUtil {
                                                                                 Toast.makeText(context, R.string.encryption_error, Toast.LENGTH_SHORT).show();
                                                                                 return;
                                                                             }
+                                                                            else    {
+
+                                                                                try {
+                                                                                    JSONObject jsonObj = new JSONObject();
+                                                                                    jsonObj.put("version", 1);
+                                                                                    jsonObj.put("payload", encrypted);
+                                                                                    encrypted = jsonObj.toString();
+                                                                                }
+                                                                                catch(JSONException je) {
+                                                                                    ;
+                                                                                }
+
+                                                                            }
+
                                                                         }
 
                                                                         if (which == 0) {
@@ -223,6 +247,16 @@ public class AppUtil {
                                             AppUtil.getInstance(context).restartApp();
                                         }
 
+                                        try {
+                                            JSONObject jsonObject = new JSONObject(encrypted);
+                                            if(jsonObject != null && jsonObject.has("payload"))    {
+                                                encrypted = jsonObject.getString("payload");
+                                            }
+                                        }
+                                        catch(JSONException je) {
+                                            ;
+                                        }
+
                                         String decrypted = null;
                                         try {
                                             decrypted = AESUtil.decrypt(encrypted, new CharSequenceX(pw), AESUtil.DefaultPBKDF2Iterations);
@@ -309,6 +343,15 @@ public class AppUtil {
 
         dlg.show();
 
+    }
+
+    public void checkTimeOut()   {
+        if(TimeOutUtil.getInstance().isTimedOut())    {
+            AppUtil.getInstance(context).restartApp();
+        }
+        else    {
+            TimeOutUtil.getInstance().updatePin();
+        }
     }
 
 }

@@ -2,13 +2,13 @@ package com.samourai.sentinel.util;
 
 import android.util.Patterns;
 
-import com.google.bitcoin.core.Address;
-import com.google.bitcoin.core.AddressFormatException;
-import com.google.bitcoin.core.Base58;
-import com.google.bitcoin.core.WrongNetworkException;
-import com.google.bitcoin.params.MainNetParams;
-import com.google.bitcoin.uri.BitcoinURI;
-import com.google.bitcoin.uri.BitcoinURIParseException;
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.Base58;
+import org.bitcoinj.core.WrongNetworkException;
+import org.bitcoinj.params.MainNetParams;
+import org.bitcoinj.uri.BitcoinURI;
+import org.bitcoinj.uri.BitcoinURIParseException;
 
 import java.nio.ByteBuffer;
 import java.util.regex.Pattern;
@@ -18,6 +18,9 @@ public class FormatsUtil {
 
 	private Pattern emailPattern = Patterns.EMAIL_ADDRESS;
 	private Pattern phonePattern = Pattern.compile("(\\+[1-9]{1}[0-9]{1,2}+|00[1-9]{1}[0-9]{1,2}+)[\\(\\)\\.\\-\\s\\d]{6,16}");
+
+	public static final int MAGIC_XPUB = 0x0488B21E;
+	public static final int MAGIC_YPUB = 0x049D7CB2;
 
 	private static FormatsUtil instance = null;
 	
@@ -91,7 +94,8 @@ public class FormatsUtil {
 			byte[] xpubBytes = Base58.decodeChecked(xpub);
 
 			ByteBuffer byteBuffer = ByteBuffer.wrap(xpubBytes);
-			if(byteBuffer.getInt() != 0x0488B21E)   {
+			int magic = byteBuffer.getInt();
+			if(magic != MAGIC_XPUB && magic != MAGIC_YPUB)   {
 				throw new AddressFormatException("invalid version: " + xpub);
 			}
 			else	{

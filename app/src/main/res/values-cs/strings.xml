@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="version_name">2.0.4</string>
+    <string name="app_name">Sentinel</string>
+
+    <string name="new_version_message">Vítejte v aplikaci Sentinel\n\nSentinel je bitcoin peněženka zobrazující pouze pohyb na účtech. Sentinel neumí odesílat bitcoiny. Naskenujte jakýkoliv XPUB a Sentinel ho bude hlídat, upozorňovat na nové příchozí transakce a umožní vytváření nových adres pro přijímání bitcoinů.\n\nSentinel je nejjednodušší a nejbezpečnější cesta pro udržování přehledu a přijímání plateb do vaší cold storage peněženky.\n\nSentinel neumí odesílat bitcoiny z peněženky, a privátní klíče nejsou nikdy ukládány v jakékoliv podobě v aplikaci Sentinel.</string>
+
+    <string name="decrypting_bip38">Dešifrování BIP38 hesla. Chvíli strpení...</string>
+
+    <string name="navigation_drawer_open">Otevřít navigační panel</string>
+    <string name="navigation_drawer_close">Zavřít navigační panel</string>
+    <string name="action_send">Odeslat</string>
+    <string name="action_stealth_send">Tajné odeslání</string>
+    <string name="action_receive">Přijmout</string>
+    <string name="action_tx">Transakce</string>
+    <string name="action_settings">Nastavení</string>
+    <string name="action_sweep">Vybrat cold storage</string>
+
+    <string name="about_us">O aplikaci Sentinel</string>
+    <string name="about_title">O nás</string>
+
+    <string name="ok">Ok</string>
+    <string name="cancel">Zrušit</string>
+
+    <string name="options_cat_prefs">Nastavení</string>
+    <string name="options_cat_wallet">Vlastní peněženka</string>
+    <string name="options_cat_other">Sentinel</string>
+
+    <string name="options_units">Jednotky</string>
+    <string name="options_units2">Zobrazované Bitcoin jednotky (výchozí BTC).</string>
+    <string name="options_currency">Pouliční cena</string>
+    <string name="options_currency2">Fiat cena z localbitcoins.com.</string>
+    <string name="options_blockexplorer">Prohlížeč bloků</string>
+    <string name="options_blockexplorer2">Prohlížeč bloků použitý pro zobrazování detailů transakcí.</string>
+    <string name="options_export">Exportovat peněženku</string>
+    <string name="options_export2">Exportuje peněženku a metadata.</string>
+    <string name="options_restore">Obnovit peněženku</string>
+    <string name="options_restore2">Obnoví peněženku a metadata ze zálohy.</string>
+
+    <string name="timeline_today">Dnes</string>
+    <string name="timeline_yesterday">Včera</string>
+    <string name="timeline_older">Starší</string>
+
+    <string name="you_received">Přijato</string>
+    <string name="you_sent">Odesláno</string>
+
+    <string name="copied_to_clipboard">Zkopírováno do schránky</string>
+    <string name="send_payment_code">Odeslat kód platby</string>
+
+    <string name="ask_you_sure_exit">Opravdu chcete ukončit Sentinel?</string>
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
+
+    <string name="pin_5_8">Zadejte prosím PIN kód dlouhý 5 až 8 znaků. Tento PIN budete potřebovat pro přístup k aplikaci Sentinel na tomto přístroji.</string>
+    <string name="pin_5_8_confirm">Potvrďte prosím 5-8 znaků PIN kódu</string>
+    <string name="pin_error">Chyba Pin kódu</string>
+    <string name="no_internet">Internetové připojení není dostupné. Zkuste prosím znovu.</string>
+    <string name="bip38_pw">BIP38 heslo</string>
+    <string name="bip38_pw_error">Chyba BIP38 hesla</string>
+    <string name="please_select">Vyberte prosím...</string>
+    <string name="pin_enter">Zadat PIN kód</string>
+    <string name="please_wait">Chvíli strpení...</string>
+    <string name="wallet_restored_ko">Chyba obnovení peněženky.</string>
+
+    <string name="address_used_previously">Tato přijímací adresa již byla v minulosti použita.</string>
+
+    <string name="scan">Skenovat</string>
+    <string name="manual">Ručně</string>
+
+    <string name="tx_ok">Transakce zaslána</string>
+
+    <string name="tx_length_error">Samourai nezpracovává transakce přesahující velikost 100KB. Zkuste svou transakci rozdělit.</string>
+    <string name="invalid_amount">Neplatná částka</string>
+
+    <string name="receive_address_to_clipboard">Kopírovat tuto adresu příjemce do schránky? Pokud zkopírováno, může být zviditelněno jiným aplikacím.</string>
+    <string name="receive_address_to_share">Sdílet tuto přijímací adresu? Pokud sdíleno, může být načteno jinými aplikacemi.</string>
+    <string name="sure_to_delete">Opravdu chcete smazat tento záznam?</string>
+
+    <string name="enter_xpub">Zadat XPUB nebo bitcoin adresu.</string>
+    <string name="xpub_error">Došlo k chybě vytváření peněženky ze zadaných XPUB/bitcoin adres. Zkuste prosím znovu.</string>
+
+    <string name="create_pin">Vytvořit PIN kód</string>
+    <string name="confirm_pin">Potvrďit PIN kód</string>
+    <string name="entering_stealth">Aplikuje se PIN kód. Chvíli strpení.</string>
+
+    <string name="error_activating_stealth">Chyba aktivace tajného spouštění. Pokud chyba přetrvá, přeinstalujte Sentinel.</string>
+
+    <string name="options_scramble_pin">Promíchat PIN klávesnici</string>
+    <string name="options_scramble_pin2">Použít promíchanou numerickou klávesnici pro Sentinel.</string>
+    <string name="options_pin">Uživatelský PIN kód</string>
+    <string name="options_pin2">Uživatelský PIN kód pro vstup do aplikace Sentinel.</string>
+
+    <string name="watchlist">Sledování</string>
+    <string name="deposit">Vklad</string>
+
+    <string name="xpub_label">Štítek</string>
+    <string name="new_account">Nový účet</string>
+
+    <string name="total_title">Celkem</string>
+    <string name="deposit_into">Vklad do...</string>
+
+    <string name="password">Heslo</string>
+    <string name="confirm_password">Potvrdit heslo</string>
+    <string name="invalid_password">Zadejte heslo obsahující alespoň 6 znaků.</string>
+    <string name="export_to_clipboard">Exportovat do schránky</string>
+    <string name="export_to_email">Exportovat do emailu</string>
+    <string name="error_password">Navrhovaná hesla se neshodují. Zkuste prosím znovu.</string>
+    <string name="encryption_error">Došlo k chybě při šifrování zálohy peněženky. Zkuste prosím znovu.</string>
+    <string name="encrypted_backup">Šifrovaná data peněženky</string>
+    <string name="decryption_error">Došlo k chybě při dešifrování zálohy peněženky. Zkuste prosím znovu.</string>
+    <string name="restore_wallet_from_backup">Obnovit peněženku ze zálohy</string>
+
+    <string name="choose_email_client">Vybrat emailového klienta:</string>
+
+</resources>
