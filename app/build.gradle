@@ -8,7 +8,7 @@ android {
         applicationId "hashengineering.groestlcoin.samourai.sentinel"
         minSdkVersion 21
         targetSdkVersion 21
-        versionCode 32000
+        versionCode 32002
         versionName "2.7.1"
         multiDexEnabled true
     }
