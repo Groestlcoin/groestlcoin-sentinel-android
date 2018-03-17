@@ -4,7 +4,7 @@
     <string name="version_name">2.5.4</string>
     <string name="app_name">Sentinel</string>
 
-    <string name="new_version_message">Tervetuloa käyttämään Sentinel-sovellusta\n\nSentineliä voi käyttää vain Bitcoinien vastaanottamiseen. Skannaa mikä tahansa XPUB seurataksesi lompakkoa sekä luodaksesi uusia osoitteita Bitcoinin vastaanottamiseen laitteen avulla.\n\nSentinel on helpoin ja turvallisin tapa seurata ja vastaanottaa maksuja offline-lompakkoon. Sentinelillä ei voi suorittaa maksuja, ja privaattiavaimia ei koskaan lähetetä laitteesta eteenpäin.</string>
+    <string name="new_version_message">Tervetuloa käyttämään Sentinel-sovellusta\n\nSentineliä voi käyttää vain Groestlcoinien vastaanottamiseen. Skannaa mikä tahansa XPUB seurataksesi lompakkoa sekä luodaksesi uusia osoitteita Groestlcoinin vastaanottamiseen laitteen avulla.\n\nSentinel on helpoin ja turvallisin tapa seurata ja vastaanottaa maksuja offline-lompakkoon. Sentinelillä ei voi suorittaa maksuja, ja privaattiavaimia ei koskaan lähetetä laitteesta eteenpäin.</string>
 
     <string name="decrypting_bip38">Puretaan BIP38-salattua salasanaa. Odota...</string>
 
@@ -72,8 +72,8 @@
     <string name="receive_address_to_share">Jaa vastaanotto-osoite? Jaettuna osoite voi näkyä muille sovelluksille laitteella.</string>
     <string name="sure_to_delete">Haluatko varmasti poistaa tiedon?</string>
 
-    <string name="enter_xpub">Syötä XPUB tai Bitcoin-osoite.</string>
-    <string name="xpub_error">Virhe luotaessa lompakkoa XPUB/Bitcoin-osoitteella. Yritä uudelleen.</string>
+    <string name="enter_xpub">Syötä XPUB tai Groestlcoin-osoite.</string>
+    <string name="xpub_error">Virhe luotaessa lompakkoa XPUB/Groestlcoin-osoitteella. Yritä uudelleen.</string>
 
     <string name="create_pin">Luo PIN-koodi</string>
     <string name="confirm_pin">Vahvista PIN-koodi</string>
@@ -112,7 +112,7 @@
     <string name="bip44_account">BIP44/49-tili</string>
     <string name="bip49_account">BIP49-tili</string>
     <string name="base58_error">Tunnistamaton formaatti</string>
-    <string name="invalid_entry">Virheellinen XPUB- tai Bitcoin-osoite</string>
+    <string name="invalid_entry">Virheellinen XPUB- tai Groestlcoin-osoite</string>
 
     <string name="unknown_xpub">XPUB syvyys</string>
 
@@ -125,14 +125,14 @@
     <string name="xpub_add_ok">XPUB lisätty onnistuneesti</string>
     <string name="xpub_add_ko">XPUB-lisäys epäonnistui</string>
 
-    <string name="select_bitcoin_address1">Bitcoin-osoite</string>
-    <string name="select_bitcoin_address2">Yksittäinen Bitcoin-osoite</string>
+    <string name="select_bitcoin_address1">Groestlcoin-osoite</string>
+    <string name="select_bitcoin_address2">Yksittäinen Groestlcoin-osoite</string>
 
-    <string name="select_bip44_xpub1">Bitcoin-lompakko</string>
-    <string name="select_bip44_xpub2">Bitcoin-lompakko käyttäen XPUB (BIP44)</string>
+    <string name="select_bip44_xpub1">Groestlcoin-lompakko</string>
+    <string name="select_bip44_xpub2">Groestlcoin-lompakko käyttäen XPUB (BIP44)</string>
 
-    <string name="select_bip49_xpub1">Segwit Bitcoin-lompakko</string>
-    <string name="select_bip49_xpub2">Bitcoin-lompakko käyttäen Segwit XPUB (BIP49)</string>
+    <string name="select_bip49_xpub1">Segwit Groestlcoin-lompakko</string>
+    <string name="select_bip49_xpub2">Groestlcoin-lompakko käyttäen Segwit XPUB (BIP49)</string>
 
     <string name="track_new">Seuraa uutta...</string>
 
