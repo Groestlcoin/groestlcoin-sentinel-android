@@ -12,9 +12,11 @@ import com.samourai.sentinel.sweep.UTXO;
 import com.samourai.sentinel.util.AddressFactory;
 import com.samourai.sentinel.util.Web;
 
+import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.script.Script;
+import org.bitcoinj.script.ScriptBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,6 +30,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.TimeZone;
 
 public class APIFactory	{
 
@@ -78,16 +81,9 @@ public class APIFactory	{
                     url.append("multiaddr&active=");
 
                 url.append(xpubs[i]);
-                Log.i("APIFactory", "XPUB:" + url.toString());
+                Log.i("APIFactory", "request:" + url.toString());
                 String response = Web.getURL(url.toString());
-                Log.i("APIFactory", "XPUB response:" + response);
-
-//                StringBuilder url = new StringBuilder(Web.SAMOURAI_API2);
-//                url.append("multiaddr?active=");
-//                url.append(xpubs[i]);
-//                Log.i("APIFactory", "XPUB:" + url.toString());
-//                String response = Web.getURL(url.toString());
-//                Log.i("APIFactory", "XPUB response:" + response);
+                Log.i("APIFactory", "response:" + response);
 
                 try {
                     jsonObject = new JSONObject(response);
@@ -362,10 +358,11 @@ public class APIFactory	{
                         String _ts = txObj.getString("time_utc");
                         try{
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss'Z'");
+                            dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
                             Date parsedDate = dateFormat.parse(_ts);
                             ts = parsedDate.getTime()/1000;
-                        }catch(Exception e){//this generic but you can control another types of exception
-                            //look the origin of excption
+                        } catch(Exception e){//this generic but you can control another types of exception
+                            ts = new Date().getTime();
                         }
                     }
 
@@ -508,9 +505,9 @@ public class APIFactory	{
             StringBuilder args = new StringBuilder();
             args.append("active=");
             args.append(address);
-            response = Web.postURL(Web.BLOCKCHAIN_DOMAIN_API + "unspent&active=", args.toString());
+            response = Web.getURL(Web.BLOCKCHAIN_DOMAIN_API + "unspent&"+ args.toString());
 
-            return parseUnspentOutputsForSweep(response);
+            return parseUnspentOutputsForSweep(response, address);
 
         }
         catch(Exception e) {
@@ -520,7 +517,7 @@ public class APIFactory	{
         return null;
     }
 
-    private synchronized UTXO parseUnspentOutputsForSweep(String unspents)   {
+    private synchronized UTXO parseUnspentOutputsForSweep(String unspents, String addressDestination)   {
 
         UTXO utxo = null;
 
@@ -545,14 +542,18 @@ public class APIFactory	{
 
                     byte[] hashBytes = Hex.decode((String)outDict.get("tx_hash"));
                     Sha256Hash txHash = Sha256Hash.wrap(hashBytes);
-                    int txOutputN = ((Number)outDict.get("tx_output_n")).intValue();
-                    BigInteger value = BigInteger.valueOf(((Number)outDict.get("value")).longValue());
+                    int txOutputN = ((Number)outDict.get("tx_ouput_n")).intValue();
+                    BigInteger value = new BigInteger(outDict.get("value").toString(), 10);
                     String script = (String)outDict.get("script");
                     byte[] scriptBytes = Hex.decode(script);
                     int confirmations = ((Number)outDict.get("confirmations")).intValue();
 
                     try {
                         String address = new Script(scriptBytes).getToAddress(MainNetParams.get()).toString();
+                        if(!address.equals(addressDestination)) {
+                            address = addressDestination;
+                            scriptBytes = ScriptBuilder.createP2SHOutputScript(Address.fromBase58(MainNetParams.get(), address).getHash160()).getProgram();
+                        }
 
                         // Construct the output
                         MyTransactionOutPoint outPoint = new MyTransactionOutPoint(txHash, txOutputN, value, scriptBytes, address);

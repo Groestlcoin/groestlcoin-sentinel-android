@@ -114,19 +114,16 @@ public class SweepUtil  {
                                     response = PushTx.getInstance(context).samourai(hexTx);
 
                                     if(response != null)    {
-                                        JSONObject jsonObject = new org.json.JSONObject(response);
-                                        if(jsonObject.has("status"))    {
-                                            if(jsonObject.getString("status").equals("ok"))    {
-                                                Toast.makeText(context, R.string.tx_ok, Toast.LENGTH_SHORT).show();
-                                            }
+                                        if(response.length() == 64+1+hexTx.length() && response.contains(hexTx)) {
+                                            Toast.makeText(context, R.string.tx_ok, Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                     else    {
                                         Toast.makeText(context, R.string.pushtx_returns_null, Toast.LENGTH_SHORT).show();
                                     }
                                 }
-                                catch(JSONException je) {
-                                    Toast.makeText(context, "pushTx:" + je.getMessage(), Toast.LENGTH_SHORT).show();
+                                catch(Exception e) {
+                                    Toast.makeText(context, "pushTx:" + e.getMessage(), Toast.LENGTH_SHORT).show();
                                 }
 
                                 dialog.dismiss();
@@ -142,7 +139,8 @@ public class SweepUtil  {
                     }
                     else    {
 //                        Toast.makeText(context, R.string.cannot_find_unspents, Toast.LENGTH_SHORT).show();
-                        sweep(privKeyReader, strReceiveAddress, true);
+                        if(!sweepBIP49)
+                            sweep(privKeyReader, strReceiveAddress, true);
                     }
 
                 }
