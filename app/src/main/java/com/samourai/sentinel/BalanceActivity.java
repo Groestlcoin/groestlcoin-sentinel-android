@@ -290,6 +290,7 @@ public class BalanceActivity extends Activity {
         menu.getItem(0).setVisible(false);
         menu.getItem(1).setVisible(false);
         menu.getItem(2).setVisible(true);
+        menu.findItem(R.id.action_refresh).setVisible(true);
         restoreActionBar();
 
         return super.onCreateOptionsMenu(menu);
@@ -300,7 +301,14 @@ public class BalanceActivity extends Activity {
 
         int id = item.getItemId();
 
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_refresh)
+        {
+            Intent intent = new Intent(ACTION_INTENT);
+            intent.putExtra("notfTx", false);
+            intent.putExtra("fetch", true);
+            LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(intent);
+        }
+        else if (id == R.id.action_settings) {
             doSettings();
         }
         else if (id == R.id.action_sweep) {

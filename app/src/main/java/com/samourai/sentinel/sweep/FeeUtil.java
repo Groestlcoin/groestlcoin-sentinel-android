@@ -33,6 +33,8 @@ public class FeeUtil  {
             suggestedFee = new SuggestedFee();
             lowFee = new SuggestedFee();
             instance = new FeeUtil();
+
+            suggestedFee.setDefaultPerKB(BigInteger.valueOf(20000));
         }
 
         return instance;
@@ -48,7 +50,7 @@ public class FeeUtil  {
         }
         else    {
             SuggestedFee fee = new SuggestedFee();
-            fee.setDefaultPerKB(BigInteger.valueOf(10000L));
+            fee.setDefaultPerKB(BigInteger.valueOf(20000L));
             return fee;
         }
     }
