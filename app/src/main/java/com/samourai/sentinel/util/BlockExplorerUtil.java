@@ -2,8 +2,8 @@ package com.samourai.sentinel.util;
 
 public class BlockExplorerUtil {
 
-    private static CharSequence[] blockExplorers = { "Chainz" };
-    private static CharSequence[] blockExplorerUrls = { "https://chainz.cryptoid.info/grs/tx.dws?" };
+    private static CharSequence[] blockExplorers = { "Chainz", "Groestlsight" };
+    private static CharSequence[] blockExplorerUrls = { "https://chainz.cryptoid.info/grs/tx.dws?", "http://groestlsight.groestlcoin.org/tx/" };
 
     public static final int CHAINZ = 0;
 
