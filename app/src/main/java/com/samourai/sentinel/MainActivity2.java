@@ -234,7 +234,7 @@ public class MainActivity2 extends Activity {
             public void run() {
                 Looper.prepare();
 
-                APIFactory.getInstance(MainActivity2.this).getDynamicFees();
+                //APIFactory.getInstance(MainActivity2.this).getDynamicFees();
 
                 Looper.loop();
 
