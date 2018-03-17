@@ -92,7 +92,7 @@ public class InsertActivity extends Activity {
                 String strResult = data.getStringExtra(ZBarConstants.SCAN_RESULT).trim();
 
                 if(strResult.startsWith("groestlcoin:"))    {
-                    strResult = strResult.substring(8);
+                    strResult = strResult.substring("groestlcoin:".length());
                 }
                 if(strResult.indexOf("?") != -1)   {
                     strResult = strResult.substring(0, strResult.indexOf("?"));

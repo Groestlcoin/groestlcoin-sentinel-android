@@ -39,7 +39,7 @@ public class MonetaryUtil {
 	}
 
     public String getBTCUnits() {
-        return "BTC";
+        return "GRS";
     }
 
 }
