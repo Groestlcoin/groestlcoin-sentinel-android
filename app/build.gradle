@@ -38,7 +38,7 @@ android {
         blackberry {
             minSdkVersion 14
             targetSdkVersion 17
-            versionCode 19119
+            versionCode 19200
         }
     }
     packagingOptions {
