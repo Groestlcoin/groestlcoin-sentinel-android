@@ -14,6 +14,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -31,7 +32,6 @@ import android.widget.Toast;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Coin;
-import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.uri.BitcoinURI;
 
 import com.google.zxing.BarcodeFormat;
@@ -43,6 +43,7 @@ import com.samourai.sentinel.api.APIFactory;
 import com.samourai.sentinel.service.WebSocketService;
 import com.samourai.sentinel.util.AppUtil;
 import com.samourai.sentinel.util.ExchangeRateFactory;
+import com.samourai.sentinel.util.FormatsUtil;
 import com.samourai.sentinel.util.MonetaryUtil;
 import com.samourai.sentinel.util.PrefsUtil;
 import com.samourai.sentinel.util.ReceiveLookAtUtil;
@@ -54,15 +55,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Set;
 
 public class ReceiveActivity extends Activity {
 
@@ -374,7 +372,15 @@ public class ReceiveActivity extends Activity {
                                     Intent intent = new Intent();
                                     intent.setAction(Intent.ACTION_SEND);
                                     intent.setType("image/png");
-                                    intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                                    if (android.os.Build.VERSION.SDK_INT >= 24) {
+                                        //From API 24 sending FIle on intent ,require custom file provider
+                                        intent.putExtra(Intent.EXTRA_STREAM, FileProvider.getUriForFile(
+                                                ReceiveActivity.this,
+                                                getApplicationContext()
+                                                        .getPackageName() + ".provider", file));
+                                    } else {
+                                        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                                    }
                                     startActivity(Intent.createChooser(intent, ReceiveActivity.this.getText(R.string.send_payment_code)));
                                 }
 
@@ -413,13 +419,19 @@ public class ReceiveActivity extends Activity {
 
     private void displayQRCode() {
 
-        BigInteger bamount = null;
         try {
-            double amount = NumberFormat.getInstance(Locale.US).parse(edAmountBTC.getText().toString()).doubleValue();
+            Number amount = NumberFormat.getInstance(Locale.US).parse(edAmountBTC.getText().toString());
 
-            long lamount = (long)(amount * 1e8);
+            long lamount = (long)(amount.doubleValue() * 1e8);
             if(lamount > 0L) {
-                ivQR.setImageBitmap(generateQRCode(BitcoinURI.convertToBitcoinURI(Address.fromBase58(MainNetParams.get(), addr), Coin.valueOf(lamount), null, null)));
+                if(!FormatsUtil.getInstance().isValidBech32(addr))    {
+                    ivQR.setImageBitmap(generateQRCode(BitcoinURI.convertToBitcoinURI(Address.fromBase58(SamouraiSentinel.getInstance().getCurrentNetworkParams(), addr), Coin.valueOf(lamount), null, null)));
+                }
+                else    {
+                    String strURI = "bitcoin:" + addr;
+                    strURI += "?amount=" + amount.toString();
+                    ivQR.setImageBitmap(generateQRCode(strURI));
+                }
             }
             else {
                 ivQR.setImageBitmap(generateQRCode(addr));
@@ -469,7 +481,9 @@ public class ReceiveActivity extends Activity {
         final List<String> xpubList = SamouraiSentinel.getInstance(ReceiveActivity.this).getAllAddrsSorted();
 
         if(!xpubList.get(SamouraiSentinel.getInstance(ReceiveActivity.this).getCurrentSelectedAccount() - 1).startsWith("xpub") &&
-                !xpubList.get(SamouraiSentinel.getInstance(ReceiveActivity.this).getCurrentSelectedAccount() - 1).startsWith("ypub"))    {
+                !xpubList.get(SamouraiSentinel.getInstance(ReceiveActivity.this).getCurrentSelectedAccount() - 1).startsWith("ypub") &&
+                !xpubList.get(SamouraiSentinel.getInstance(ReceiveActivity.this).getCurrentSelectedAccount() - 1).startsWith("zpub")
+                )    {
             return;
         }
 

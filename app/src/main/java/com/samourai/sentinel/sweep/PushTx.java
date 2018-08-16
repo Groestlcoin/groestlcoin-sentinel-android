@@ -2,6 +2,7 @@ package com.samourai.sentinel.sweep;
 
 import android.content.Context;
 
+import com.samourai.sentinel.SamouraiSentinel;
 import com.samourai.sentinel.util.Web;
 
 public class PushTx {
@@ -24,10 +25,13 @@ public class PushTx {
 
     public String samourai(String hexString) {
 
+        String _url = SamouraiSentinel.getInstance().isTestNet() ? Web.SAMOURAI_API2_TESTNET : Web.SAMOURAI_API2;
+
         try {
             String response = null;
 
-            response = Web.postURL("text/plain", Web.BLOCKCHAIN_DOMAIN_API + "pushtx", hexString);
+            response = Web.postURL("text/plain", _url + "pushtx", hexString);
+
 
             return response;
         }

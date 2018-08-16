@@ -10,8 +10,11 @@ public class Web	{
 
     public static final String BLOCKCHAIN_DOMAIN = "https://chainz.cryptoid.info/grs/";
     public static final String BLOCKCHAIN_DOMAIN_API = BLOCKCHAIN_DOMAIN + "api.dws?key=d47da926b82e&q=";
-
+    public static final String BLOCKCHAIN_DOMAIN_TEST = "https://chainz.cryptoid.info/grs-test/";
+    public static final String BLOCKCHAIN_DOMAIN_API_TEST = BLOCKCHAIN_DOMAIN_TEST + "api.dws?key=d47da926b82e&q=";
 	public static final String EXCHANGE_URL = "https://localbitcoins.com/bitcoinaverage/ticker-all-currencies/";
+    public static final String SAMOURAI_API2 = BLOCKCHAIN_DOMAIN_API;
+    public static final String SAMOURAI_API2_TESTNET = BLOCKCHAIN_DOMAIN_API_TEST;
     public static final String LBC_EXCHANGE_URL = "https://localbitcoins.com/bitcoinaverage/ticker-all-currencies/";
     public static final String BTCe_EXCHANGE_URL = "https://wex.nz/api/3/ticker/";
     public static final String BFX_EXCHANGE_URL = "https://api.bitfinex.com/v1/pubticker/btcusd";

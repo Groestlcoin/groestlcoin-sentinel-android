@@ -33,3 +33,8 @@ Thumbs.db
 .gradle
 build/
 projectFilesBackup/
+app/release/
+app/production/
+app/staging/
+
+app/output.json

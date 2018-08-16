@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="version_name">2.7.1</string>
-    <string name="app_name">Groestlcoin Sentinel</string>
-
     <string name="new_version_message">Welcome to Groestlcoin Sentinel\n\nGroestlcoin Sentinel is your deposit only Groestlcoin wallet. Groestlcoin Sentinel cannot send Groestlcoin. Scan any XPUB and Groestlcoin Sentinel will keep watch, alerting you of any new incoming transactions and allowing you to create new addresses so you can receive Groestlcoin on your mobile device.\n\nGroestlcoin Sentinel is the easiest and most secure way to keep track and receive payments to your cold storage wallet.\n\nGroestlcoin Sentinel can\'t send Groestlcoin out of your wallet, and your private keys are never communicated with Groestlcoin Sentinel in any way.</string>
 
     <string name="decrypting_bip38">Decrypting BIP38 password. Please wait...</string>
@@ -23,10 +20,11 @@
 
     <string name="options_cat_prefs">Preferences</string>
     <string name="options_cat_wallet">Your wallet</string>
+    <string name="options_cat_offline">Offline transactions</string>
     <string name="options_cat_other">Groestlcoin Sentinel</string>
 
     <string name="options_currency">Street price</string>
-    <string name="options_currency2">The fiat price from the selected exchange.</string>
+    <string name="options_currency2">The fiat price from a selected exchange.</string>
     <string name="options_blockexplorer">Block explorer</string>
     <string name="options_blockexplorer2">The block explorer used to view transaction details.</string>
     <string name="options_export">Export wallet</string>
@@ -68,7 +66,6 @@
 
     <string name="tx_ok">Transaction sent</string>
 
-    <string name="tx_length_error">Samourai does not handle transactions over 100KB in size. Please try splitting your transaction.</string>
     <string name="invalid_amount">Invalid amount</string>
 
     <string name="receive_address_to_clipboard">Copy this receive address to the clipboard? If copied, it may be visible to other applications.</string>
@@ -88,6 +85,8 @@
     <string name="options_scramble_pin2">Use scrambled numerical pad to enter Groestlcoin Sentinel.</string>
     <string name="options_pin">User PIN code</string>
     <string name="options_pin2">User PIN code to enter Groestlcoin Sentinel.</string>
+    <string name="options_broadcast_hex">Broadcast transaction hex</string>
+    <string name="options_broadcast_hex2">Broadcast signed transaction supplied in hex format.</string>
 
     <string name="watchlist">Watchlist</string>
     <string name="deposit">Deposit</string>
@@ -114,6 +113,7 @@
     <string name="bip32_account">BIP32 account</string>
     <string name="bip44_account">BIP44/49 account</string>
     <string name="bip49_account">BIP49 account</string>
+    <string name="bip84_account">BIP84 account</string>
     <string name="base58_error">Unrecognized format</string>
     <string name="invalid_entry">Invalid XPUB or groestlcoin address</string>
 
@@ -135,8 +135,28 @@
     <string name="select_bip44_xpub2">groestlcoin wallet via XPUB (BIP44)</string>
 
     <string name="select_bip49_xpub1">Segwit Groestlcoin Wallet</string>
-    <string name="select_bip49_xpub2">groestlcoin wallet via Segwit XPUB (BIP49)</string>
+    <string name="select_bip49_xpub2">groestlcoin wallet via Segwit YPUB/ZPUB (BIP49/84)</string>
 
     <string name="track_new">Track new...</string>
+    <string name="received_bitcoin">Received Groestlcoin</string>
+
+    <string name="bitcoin_address">bitcoin address</string>
+    <string name="bech32_address">bech32 Groestlcoin address</string>
+
+    <string name="start">Start</string>
+    <string name="get_started">Get Started</string>
+    <string name="add_first_address">Add any Groestlcoin address or XPUB and Groestlcoin Sentinel will be activated</string>
+
+    <string name="tx_length_error">Samourai does not handle transactions over 100KB in size. Please try splitting your transaction.</string>
+    <string name="tx_hex">Transaction hex</string>
+    <string name="enter_tx_hex">Enter transaction in hex format</string>
+    <string name="broadcast">Broadcast transaction</string>
+
+    <string name="select_network">Select network...</string>
+    <string name="MainNet">MainNet</string>
+    <string name="TestNet">TestNet</string>
+
+    <string name="permission_alert_dialog_title_camera">Requesting camera permission</string>
+    <string name="permission_dialog_message_camera">Your wallet needs access to the camera so it can scan QR codes.</string>
 
 </resources>

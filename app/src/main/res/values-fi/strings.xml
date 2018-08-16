@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="version_name">2.5.4</string>
-    <string name="app_name">Sentinel</string>
-
     <string name="new_version_message">Tervetuloa käyttämään Sentinel-sovellusta\n\nSentineliä voi käyttää vain Groestlcoinien vastaanottamiseen. Skannaa mikä tahansa XPUB seurataksesi lompakkoa sekä luodaksesi uusia osoitteita Groestlcoinin vastaanottamiseen laitteen avulla.\n\nSentinel on helpoin ja turvallisin tapa seurata ja vastaanottaa maksuja offline-lompakkoon. Sentinelillä ei voi suorittaa maksuja, ja privaattiavaimia ei koskaan lähetetä laitteesta eteenpäin.</string>
 
     <string name="decrypting_bip38">Puretaan BIP38-salattua salasanaa. Odota...</string>
@@ -65,7 +62,6 @@
 
     <string name="tx_ok">Transaktio lähetetty</string>
 
-    <string name="tx_length_error">Samourai ei toimita transaktioita, joiden koko ylittää 100KB. Ole hyvä ja syötä transaktio pienemmissä osissa.</string>
     <string name="invalid_amount">Virheellinen määrä</string>
 
     <string name="receive_address_to_clipboard">Kopioi tämä vastaanotto-osoite leikepöydälle? Kopioituna osoite voi näkyä muille sovelluksille laitteella.</string>

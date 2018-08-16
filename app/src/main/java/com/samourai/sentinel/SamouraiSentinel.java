@@ -7,13 +7,17 @@ import android.util.Log;
 
 import com.samourai.sentinel.crypto.AESUtil;
 import com.samourai.sentinel.segwit.P2SH_P2WPKH;
+import com.samourai.sentinel.segwit.SegwitAddress;
 import com.samourai.sentinel.util.AddressFactory;
 import com.samourai.sentinel.util.CharSequenceX;
 import com.samourai.sentinel.util.MapUtil;
+import com.samourai.sentinel.util.PrefsUtil;
 import com.samourai.sentinel.util.ReceiveLookAtUtil;
 
 import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.params.MainNetParams;
+import org.bitcoinj.params.TestNet3Params;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -30,9 +34,12 @@ import java.util.Map;
 
 public class SamouraiSentinel {
 
+    private static NetworkParameters networkParams = null;
+
     private static HashMap<String,String> xpubs = null;
     private static HashMap<String,String> legacy = null;
     private static HashMap<String,String> bip49 = null;
+    private static HashMap<String,String> bip84 = null;
     private static HashMap<String,Integer> highestReceiveIdx = null;
 
     private static SamouraiSentinel instance = null;
@@ -46,9 +53,25 @@ public class SamouraiSentinel {
 
     private static String strSentinelXPUB = "sentinel.xpub";
     private static String strSentinelBIP49 = "sentinel.bip49";
+    private static String strSentinelBIP84 = "sentinel.bip84";
     private static String strSentinelLegacy = "sentinel.legacy";
 
     private SamouraiSentinel()    { ; }
+
+    public static SamouraiSentinel getInstance()  {
+
+        if(instance == null)    {
+            xpubs = new HashMap<String,String>();
+            bip49 = new HashMap<String,String>();
+            bip84 = new HashMap<String,String>();
+            legacy = new HashMap<String,String>();
+            highestReceiveIdx = new HashMap<String,Integer>();
+
+            instance = new SamouraiSentinel();
+        }
+
+        return instance;
+    }
 
     public static SamouraiSentinel getInstance(Context ctx)  {
 
@@ -57,6 +80,7 @@ public class SamouraiSentinel {
         if(instance == null)    {
             xpubs = new HashMap<String,String>();
             bip49 = new HashMap<String,String>();
+            bip84 = new HashMap<String,String>();
             legacy = new HashMap<String,String>();
             highestReceiveIdx = new HashMap<String,Integer>();
 
@@ -78,6 +102,8 @@ public class SamouraiSentinel {
 
     public HashMap<String,String> getBIP49()    { return bip49; }
 
+    public HashMap<String,String> getBIP84()    { return bip84; }
+
     public HashMap<String,String> getLegacy()    { return legacy; }
 
     public List<String> getAllAddrsSorted()    {
@@ -85,6 +111,7 @@ public class SamouraiSentinel {
         HashMap<String,String> mapAll = new HashMap<String,String>();
         mapAll.putAll(xpubs);
         mapAll.putAll(bip49);
+        mapAll.putAll(bip84);
         mapAll = MapUtil.getInstance().sortByValue(mapAll);
         mapAll.putAll(MapUtil.getInstance().sortByValue(legacy));
 
@@ -99,6 +126,7 @@ public class SamouraiSentinel {
         HashMap<String,String> mapAll = new HashMap<String,String>();
         mapAll.putAll(xpubs);
         mapAll.putAll(bip49);
+        mapAll.putAll(bip84);
         mapAll = MapUtil.getInstance().sortByValue(mapAll);
         mapAll.putAll(MapUtil.getInstance().sortByValue(legacy));
 
@@ -110,6 +138,16 @@ public class SamouraiSentinel {
         xpubs.clear();
 
         try {
+
+            if(obj.has("testnet"))    {
+                setCurrentNetworkParams(obj.getBoolean("testnet") ? TestNet3Params.get() : MainNetParams.get());
+                PrefsUtil.getInstance(context).setValue(PrefsUtil.TESTNET, obj.getBoolean("testnet"));
+            }
+            else    {
+                setCurrentNetworkParams(MainNetParams.get());
+                PrefsUtil.getInstance(context).removeValue(PrefsUtil.TESTNET);
+            }
+
             if(obj != null && obj.has("xpubs"))    {
                 JSONArray _xpubs = obj.getJSONArray("xpubs");
                 for(int i = 0; i < _xpubs.length(); i++)   {
@@ -144,6 +182,23 @@ public class SamouraiSentinel {
                 }
             }
 
+            if(obj != null && obj.has("bip84"))    {
+                JSONArray _bip84s = obj.getJSONArray("bip84");
+                for(int i = 0; i < _bip84s.length(); i++)   {
+                    JSONObject _obj = _bip84s.getJSONObject(i);
+                    Iterator it = _obj.keys();
+                    while (it.hasNext()) {
+                        String key = (String)it.next();
+                        if(key.equals("receiveIdx"))    {
+                            highestReceiveIdx.put(key, _obj.getInt(key));
+                        }
+                        else    {
+                            bip84.put(key, _obj.getString(key));
+                        }
+                    }
+                }
+            }
+
             if(obj != null && obj.has("legacy"))    {
                 JSONArray _addr = obj.getJSONArray("legacy");
                 for(int i = 0; i < _addr.length(); i++)   {
@@ -171,6 +226,9 @@ public class SamouraiSentinel {
         try {
             JSONObject obj = new JSONObject();
 
+            obj.put("version_name", context.getText(R.string.version_name));
+            obj.put("testnet", isTestNet());
+
             JSONArray _xpubs = new JSONArray();
             for(String xpub : xpubs.keySet()) {
                 JSONObject _obj = new JSONObject();
@@ -188,6 +246,15 @@ public class SamouraiSentinel {
                 _bip49s.put(_obj);
             }
             obj.put("bip49", _bip49s);
+
+            JSONArray _bip84s = new JSONArray();
+            for(String b84 : bip84.keySet()) {
+                JSONObject _obj = new JSONObject();
+                _obj.put(b84, bip84.get(b84));
+                _obj.put("receiveIdx", highestReceiveIdx.get(b84) == null ? 0 : highestReceiveIdx.get(b84));
+                _bip84s.put(_obj);
+            }
+            obj.put("bip84", _bip84s);
 
             JSONArray _addr = new JSONArray();
             for(String addr : legacy.keySet()) {
@@ -303,6 +370,13 @@ public class SamouraiSentinel {
         }
         bEditor.commit();
 
+        SharedPreferences _bip84 = context.getSharedPreferences(strSentinelBIP84, 0);
+        SharedPreferences.Editor zEditor = _bip84.edit();
+        for(String b84 : bip84.keySet()) {
+            zEditor.putString(b84, bip84.get(b84));
+        }
+        zEditor.commit();
+
         SharedPreferences _legacy = context.getSharedPreferences(strSentinelLegacy, 0);
         SharedPreferences.Editor lEditor = _legacy.edit();
         for(String leg : legacy.keySet()) {
@@ -330,6 +404,14 @@ public class SamouraiSentinel {
             }
         }
 
+        SharedPreferences bip84s = context.getSharedPreferences(strSentinelBIP84, 0);
+        if(bip84s != null)    {
+            Map<String, ?> all84 = bip84s.getAll();
+            for (Map.Entry<String, ?> entry : all84.entrySet()) {
+                SamouraiSentinel.getInstance(context).getBIP84().put(entry.getKey(), entry.getValue().toString());
+            }
+        }
+
         SharedPreferences legacy = context.getSharedPreferences(strSentinelLegacy, 0);
         if(legacy != null)    {
             Map<String, ?> allLegacy = legacy.getAll();
@@ -352,6 +434,11 @@ public class SamouraiSentinel {
         bEditor.remove(xpub);
         bEditor.commit();
 
+        SharedPreferences _bip84 = context.getSharedPreferences(strSentinelBIP84, 0);
+        SharedPreferences.Editor zEditor = _bip84.edit();
+        zEditor.remove(xpub);
+        zEditor.commit();
+
         SharedPreferences _legacy = context.getSharedPreferences(strSentinelLegacy, 0);
         SharedPreferences.Editor lEditor = _legacy.edit();
         lEditor.remove(xpub);
@@ -367,15 +454,26 @@ public class SamouraiSentinel {
         ECKey ecKey = null;
 
         if(xpubList.get(SamouraiSentinel.getInstance(context).getCurrentSelectedAccount() - 1).startsWith("xpub") ||
-                xpubList.get(SamouraiSentinel.getInstance(context).getCurrentSelectedAccount() - 1).startsWith("ypub"))    {
+                xpubList.get(SamouraiSentinel.getInstance(context).getCurrentSelectedAccount() - 1).startsWith("ypub") ||
+                xpubList.get(SamouraiSentinel.getInstance(context).getCurrentSelectedAccount() - 1).startsWith("zpub") ||
+        xpubList.get(SamouraiSentinel.getInstance(context).getCurrentSelectedAccount() - 1).startsWith("tpub") ||
+        xpubList.get(SamouraiSentinel.getInstance(context).getCurrentSelectedAccount() - 1).startsWith("upub") ||
+        xpubList.get(SamouraiSentinel.getInstance(context).getCurrentSelectedAccount() - 1).startsWith("vpub")
+                )    {
             String xpub = xpubList.get(SamouraiSentinel.getInstance(context).getCurrentSelectedAccount() - 1);
             Log.d("SamouraiSentinel", "xpub:" + xpub);
             int account = AddressFactory.getInstance(context).xpub2account().get(xpub);
             Log.d("SamouraiSentinel", "account:" + account);
             if(SamouraiSentinel.getInstance(context).getBIP49().keySet().contains(xpub))    {
                 ecKey = AddressFactory.getInstance(context).getECKey(AddressFactory.RECEIVE_CHAIN, account);
-                P2SH_P2WPKH p2sh_p2wpkh = new P2SH_P2WPKH(ecKey.getPubKey(), MainNetParams.get());
+                P2SH_P2WPKH p2sh_p2wpkh = new P2SH_P2WPKH(ecKey.getPubKey(), SamouraiSentinel.getInstance().getCurrentNetworkParams());
                 addr = p2sh_p2wpkh.getAddressAsString();
+                Log.d("SamouraiSentinel", "addr:" + addr);
+            }
+            else if(SamouraiSentinel.getInstance(context).getBIP84().keySet().contains(xpub))    {
+                ecKey = AddressFactory.getInstance(context).getECKey(AddressFactory.RECEIVE_CHAIN, account);
+                SegwitAddress segwitAddress = new SegwitAddress(ecKey.getPubKey(), SamouraiSentinel.getInstance().getCurrentNetworkParams());
+                addr = segwitAddress.getBech32AsString();
                 Log.d("SamouraiSentinel", "addr:" + addr);
             }
             else    {
@@ -388,6 +486,18 @@ public class SamouraiSentinel {
 
         return addr;
 
+    }
+
+    public NetworkParameters getCurrentNetworkParams() {
+        return (networkParams == null) ? MainNetParams.get() : networkParams;
+    }
+
+    public void setCurrentNetworkParams(NetworkParameters params) {
+        networkParams = params;
+    }
+
+    public boolean isTestNet()  {
+        return (networkParams == null) ? false : !(getCurrentNetworkParams() instanceof MainNetParams);
     }
 
 }

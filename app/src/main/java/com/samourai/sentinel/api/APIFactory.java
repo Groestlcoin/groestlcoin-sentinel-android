@@ -5,6 +5,7 @@ import android.util.Log;
 //import android.util.Log;
 
 import com.samourai.sentinel.SamouraiSentinel;
+import com.samourai.sentinel.segwit.bech32.Bech32Util;
 import com.samourai.sentinel.sweep.FeeUtil;
 import com.samourai.sentinel.sweep.MyTransactionOutPoint;
 import com.samourai.sentinel.sweep.SuggestedFee;
@@ -14,7 +15,6 @@ import com.samourai.sentinel.util.Web;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Sha256Hash;
-import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.script.Script;
 import org.bitcoinj.script.ScriptBuilder;
 import org.json.JSONArray;
@@ -66,14 +66,16 @@ public class APIFactory	{
 
     public JSONObject getXPUB(String[] xpubs) {
 
+        String _url = SamouraiSentinel.getInstance().isTestNet() ? Web.SAMOURAI_API2_TESTNET : Web.SAMOURAI_API2;
+
         JSONObject jsonObject  = null;
         xpub_amounts.clear();
 
         for(int i = 0; i < xpubs.length; i++)   {
             try {
-                boolean is_xpub = xpubs[i].startsWith("xpub");
+                boolean is_xpub = xpubs[i].startsWith("xpub") || xpubs[i].startsWith("ypub") || xpubs[i].startsWith("zpub");
 
-                StringBuilder url = new StringBuilder(Web.BLOCKCHAIN_DOMAIN_API);
+                StringBuilder url = new StringBuilder(_url);
 
                 if(is_xpub)
                     url.append("xpub2&xpub=");
@@ -83,8 +85,8 @@ public class APIFactory	{
                 url.append(xpubs[i]);
                 Log.i("APIFactory", "request:" + url.toString());
                 String response = Web.getURL(url.toString());
-                Log.i("APIFactory", "response:" + response);
 
+                Log.i("APIFactory", "XPUB response:" + response);
                 try {
                     jsonObject = new JSONObject(response);
                     xpub_txs.put(xpubs[i], new ArrayList<Tx>());
@@ -141,9 +143,21 @@ public class APIFactory	{
                     }
                     if(addrObj.has("final_balance") && addrObj.has("address"))  {
                         xpub_amounts.put((String)addrObj.get("address"), addrObj.getLong("final_balance"));
-                        if(((String)addrObj.get("address")).startsWith("xpub") || ((String)addrObj.get("address")).startsWith("ypub"))    {
-                            AddressFactory.getInstance().setHighestTxReceiveIdx(AddressFactory.getInstance().xpub2account().get((String) addrObj.get("address")), addrObj.getInt("account_index"));
-                            AddressFactory.getInstance().setHighestTxChangeIdx(AddressFactory.getInstance().xpub2account().get((String) addrObj.get("address")), addrObj.getInt("change_index"));
+                        if(((String)addrObj.get("address")).startsWith("xpub") || ((String)addrObj.get("address")).startsWith("ypub") || ((String)addrObj.get("address")).startsWith("zpub") || ((String)addrObj.get("address")).startsWith("tpub") || ((String)addrObj.get("address")).startsWith("upub") || ((String)addrObj.get("address")).startsWith("vpub"))    {
+                            if(AddressFactory.getInstance().xpub2account().containsKey((String) addrObj.get("address")))    {
+                                if(addrObj.has("account_index"))    {
+                                    AddressFactory.getInstance().setHighestTxReceiveIdx(AddressFactory.getInstance().xpub2account().get((String) addrObj.get("address")), addrObj.getInt("account_index"));
+                                }
+                                else    {
+                                    AddressFactory.getInstance().setHighestTxReceiveIdx(AddressFactory.getInstance().xpub2account().get((String) addrObj.get("address")), 0);
+                                }
+                                if(addrObj.has("change_index"))    {
+                                    AddressFactory.getInstance().setHighestTxChangeIdx(AddressFactory.getInstance().xpub2account().get((String) addrObj.get("address")), addrObj.getInt("change_index"));
+                                }
+                                else    {
+                                    AddressFactory.getInstance().setHighestTxReceiveIdx(AddressFactory.getInstance().xpub2account().get((String) addrObj.get("address")), 0);
+                                }
+                            }
                         }
                     }
                 }
@@ -498,6 +512,8 @@ public class APIFactory	{
 
     public synchronized UTXO getUnspentOutputsForSweep(String address) {
 
+        String _url = SamouraiSentinel.getInstance().isTestNet() ? Web.SAMOURAI_API2_TESTNET : Web.SAMOURAI_API2;
+
         try {
 
             String response = null;
@@ -505,7 +521,8 @@ public class APIFactory	{
             StringBuilder args = new StringBuilder();
             args.append("active=");
             args.append(address);
-            response = Web.getURL(Web.BLOCKCHAIN_DOMAIN_API + "unspent&"+ args.toString());
+            Log.d("APIFactory", "unspents call:" + args.toString());
+            response = Web.getURL(_url + "unspent&"+ args.toString());
 
             return parseUnspentOutputsForSweep(response, address);
 
@@ -518,6 +535,8 @@ public class APIFactory	{
     }
 
     private synchronized UTXO parseUnspentOutputsForSweep(String unspents, String addressDestination)   {
+
+        Log.d("APIFactory", "unspents:" + unspents);
 
         UTXO utxo = null;
 
@@ -549,10 +568,13 @@ public class APIFactory	{
                     int confirmations = ((Number)outDict.get("confirmations")).intValue();
 
                     try {
-                        String address = new Script(scriptBytes).getToAddress(MainNetParams.get()).toString();
-                        if(!address.equals(addressDestination)) {
-                            address = addressDestination;
-                            scriptBytes = ScriptBuilder.createP2SHOutputScript(Address.fromBase58(MainNetParams.get(), address).getHash160()).getProgram();
+                        String address = null;
+                        if(Bech32Util.getInstance().isBech32Script(script))    {
+                            address = Bech32Util.getInstance().getAddressFromScript(script);
+                            Log.d("address parsed:", address);
+                        }
+                        else    {
+                            address = new Script(scriptBytes).getToAddress(SamouraiSentinel.getInstance().getCurrentNetworkParams()).toString();
                         }
 
                         // Construct the output
