@@ -36,7 +36,7 @@ public class Bech32Util {
 
         String hrp = null;
 
-        return Bech32Segwit.encode(SamouraiSentinel.getInstance().isTestNet() ? "tb" : "bc", (byte)0x00, Hex.decode(script.substring(4).getBytes()));
+        return Bech32Segwit.encode(SamouraiSentinel.getInstance().isTestNet() ? "tgrs" : "grs", (byte)0x00, Hex.decode(script.substring(4).getBytes()));
     }
 
 }
