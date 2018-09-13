@@ -4,6 +4,7 @@ public class BlockExplorerUtil {
 
     private static CharSequence[] blockExplorers = { "Chainz", "Groestlsight" };
     private static CharSequence[] blockExplorerUrls = { "https://chainz.cryptoid.info/grs/tx.dws?", "http://groestlsight.groestlcoin.org/tx/" };
+    private static CharSequence[] blockExplorerUrlsTest = { "https://chainz.cryptoid.info/grs-test/tx.dws?", "http://groestlsight-test.groestlcoin.org/tx/" };
 
 
     private static BlockExplorerUtil instance = null;
@@ -26,5 +27,7 @@ public class BlockExplorerUtil {
     public CharSequence[] getBlockExplorerUrls() {
         return blockExplorerUrls;
     }
-
+    public CharSequence[] getBlockExplorerTestUrls() {
+        return blockExplorerUrlsTest;
+    }
 }

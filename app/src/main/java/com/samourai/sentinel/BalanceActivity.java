@@ -228,7 +228,8 @@ public class BalanceActivity extends Activity {
                     if(strTx != null) {
                         int sel = PrefsUtil.getInstance(BalanceActivity.this).getValue(PrefsUtil.BLOCK_EXPLORER, 0);
                         CharSequence url = BlockExplorerUtil.getInstance().getBlockExplorerUrls()[sel];
-
+                        if(SamouraiSentinel.getInstance().isTestNet())
+                            url = BlockExplorerUtil.getInstance().getBlockExplorerTestUrls()[sel];
                         Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url + strTx));
                         startActivity(browserIntent);
                     }
@@ -665,7 +666,7 @@ public class BalanceActivity extends Activity {
 
     public String getDisplayUnits() {
 
-        return MonetaryUtil.getInstance().getBTCUnits();
+        return MonetaryUtil.getInstance().getBTCUnits(SamouraiSentinel.getInstance().isTestNet());
 
     }
 
@@ -1099,7 +1100,7 @@ public class BalanceActivity extends Activity {
 
     private String getBTCDisplayUnits() {
 
-        return MonetaryUtil.getInstance().getBTCUnits();
+        return MonetaryUtil.getInstance().getBTCUnits(SamouraiSentinel.getInstance().isTestNet());
 
     }
 
