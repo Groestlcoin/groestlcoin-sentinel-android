@@ -471,7 +471,7 @@ public class XPUBListActivity extends Activity {
 
     public String getDisplayUnits() {
 
-        return (String) MonetaryUtil.getInstance().getBTCUnits();
+        return (String) MonetaryUtil.getInstance().getBTCUnits(SamouraiSentinel.getInstance().isTestNet());
 
     }
 

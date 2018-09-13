@@ -42,4 +42,8 @@ public class MonetaryUtil {
         return "GRS";
     }
 
+    public String getBTCUnits(boolean testnet) {
+		return testnet == false ? "GRS" : "TGRS";
+	}
+
 }
