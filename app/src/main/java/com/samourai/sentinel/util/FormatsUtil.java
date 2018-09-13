@@ -24,8 +24,8 @@ public class FormatsUtil {
 	private Pattern emailPattern = Patterns.EMAIL_ADDRESS;
 	private Pattern phonePattern = Pattern.compile("(\\+[1-9]{1}[0-9]{1,2}+|00[1-9]{1}[0-9]{1,2}+)[\\(\\)\\.\\-\\s\\d]{6,16}");
 
-	private String URI_BECH32 = "(^bitcoin:(tb|bc)1([qpzry9x8gf2tvdw0s3jn54khce6mua7l]+)(\\?amount\\=([0-9.]+))?$)|(^bitcoin:(TB|BC)1([QPZRY9X8GF2TVDW0S3JN54KHCE6MUA7L]+)(\\?amount\\=([0-9.]+))?$)";
-	private String URI_BECH32_LOWER = "^bitcoin:((tb|TB|bc|BC)1[qpzry9x8gf2tvdw0s3jn54khce6mua7l]+)(\\?amount\\=([0-9.]+))?$";
+	private String URI_BECH32 = "(^groestlcoin:(tgrs|grs)1([qpzry9x8gf2tvdw0s3jn54khce6mua7l]+)(\\?amount\\=([0-9.]+))?$)|(^groestlcoin:(TGRS|GRS)1([QPZRY9X8GF2TVDW0S3JN54KHCE6MUA7L]+)(\\?amount\\=([0-9.]+))?$)";
+	private String URI_BECH32_LOWER = "^groestlcoin:((tgrs|TGRS|grs|GRS)1[qpzry9x8gf2tvdw0s3jn54khce6mua7l]+)(\\?amount\\=([0-9.]+))?$";
 
 	public static final int MAGIC_XPUB = 0x0488B21E;
 	public static final int MAGIC_TPUB = 0x043587CF;
@@ -175,10 +175,10 @@ public class FormatsUtil {
 		boolean ret = false;
 		Address addr = null;
 
-		if(address.toLowerCase().startsWith("bc") || address.toLowerCase().startsWith("tb"))	{
+		if(address.toLowerCase().startsWith("grs") || address.toLowerCase().startsWith("tgrs"))	{
 
 			try	{
-				Pair<Byte, byte[]> pair = Bech32Segwit.decode(address.substring(0, 2), address);
+				Pair<Byte, byte[]> pair = Bech32Segwit.decode(address.substring(0, Character.toLowerCase(address.charAt(0)) == 't' ? 4 : 3), address);
 				if(pair.getLeft() == null || pair.getRight() == null)	{
 					;
 				}
@@ -221,7 +221,7 @@ public class FormatsUtil {
 				ret = false;
 			}
 			else	{
-				Pair<Byte, byte[]> pair1 = Bech32Segwit.decode(address.substring(0, 2), address);
+				Pair<Byte, byte[]> pair1 = Bech32Segwit.decode(address.substring(0, Character.toLowerCase(address.charAt(0)) == 't' ? 4 : 3), address);
 				if(pair1.getLeft() == null || pair1.getRight() == null)	{
 					ret = false;
 				}
