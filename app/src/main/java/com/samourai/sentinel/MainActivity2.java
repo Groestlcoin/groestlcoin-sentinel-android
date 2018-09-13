@@ -322,7 +322,25 @@ public class MainActivity2 extends Activity {
                 catch(Exception e) {
                     e.printStackTrace();
                 }
+                response = null;
+                try {
+                    response = Web.getURL(Web.BINANCE_EXCHANGE_URL);
+                    ExchangeRateFactory.getInstance(MainActivity2.this).setDataBinance(response);
+                    ExchangeRateFactory.getInstance(MainActivity2.this).parseBinance();
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                }
 
+                response = null;
+                try {
+                    response = Web.getURL(Web.UPBIT_EXCHANGE_URL);
+                    ExchangeRateFactory.getInstance(MainActivity2.this).setDataUpbit(response);
+                    ExchangeRateFactory.getInstance(MainActivity2.this).parseUpbit();
+                }
+                catch(Exception e) {
+                    e.printStackTrace();
+                }
                 handler.post(new Runnable() {
                     @Override
                     public void run() {

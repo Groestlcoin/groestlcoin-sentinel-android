@@ -19,18 +19,22 @@ public class ExchangeRateFactory	{
     private static String strDataBFX = null;
     private static String strCryptopia = null;
     private static String strBittrex = null;
+    private static String strBinance = null;
+    private static String strUpbit = null;
 
     private static HashMap<String,Double> fxRatesLBC = null;
     private static HashMap<String,Double> fxRatesBTCe = null;
     private static HashMap<String,Double> fxRatesBFX = null;
     private static HashMap<String,Double> fxCryptopia = null;
     private static HashMap<String,Double> fxBittrex = null;
+    private static HashMap<String,Double> fxBinance = null;
+    private static HashMap<String,Double> fxUpbit = null;
 //    private static HashMap<String,String> fxSymbols = null;
 
     private static ExchangeRateFactory instance = null;
 
     private static String[] currencies = {
-            "CNY", "EUR", "GBP", "RUB", "USD"
+            "CNY", "EUR", "GBP", "RUB", "USD", "KRW"
     };
 
     private static String[] currencyLabels = {
@@ -38,7 +42,8 @@ public class ExchangeRateFactory	{
             "Euro - EUR",
             "British Pound Sterling - GBP",
             "Chinese Yuan - CNY",
-            "Russian Rouble - RUB"
+            "Russian Rouble - RUB",
+            "Korean Won - KRW"
     };
 
     private static String[] currencyLabelsBTCe = {
@@ -50,6 +55,8 @@ public class ExchangeRateFactory	{
     private static String[] exchangeLabels = {
             "Cryptopia",
             "Bittrex",
+            "Binance",
+            "Upbit"
     };
 
     private ExchangeRateFactory()	 { ; }
@@ -65,6 +72,8 @@ public class ExchangeRateFactory	{
 //            fxSymbols = new HashMap<String,String>();
             fxCryptopia = new HashMap<String,Double>();
             fxBittrex = new HashMap<String,Double>();
+            fxBinance = new HashMap<>();
+            fxUpbit = new HashMap<>();
 
             instance = new ExchangeRateFactory();
         }
@@ -75,13 +84,13 @@ public class ExchangeRateFactory	{
     public double getAvgPrice(String currency)	 {
        // int fxSel = PrefsUtil.getInstance(context).getValue(PrefsUtil.CURRENT_EXCHANGE_SEL, 0);
         HashMap<String,Double> fxRates = null;
-        if(!fxRatesBTCe.isEmpty() && fxRatesBTCe.containsKey(currency) && fxRatesBTCe.get(currency) > 0.0)	 {
+        /*if(!fxRatesBTCe.isEmpty() && fxRatesBTCe.containsKey(currency) && fxRatesBTCe.get(currency) > 0.0)	 {
             fxRates = fxRatesBTCe;
         }
         else if(!fxRatesBFX.isEmpty() && fxRatesBFX.containsKey(currency) && fxRatesBFX.get(currency) > 0.0)	 {
             fxRates = fxRatesBFX;
         }
-        else if(!fxRatesLBC.isEmpty() && fxRatesLBC.containsKey(currency) && fxRatesLBC.get(currency) > 0.0)	 {
+        else */if(!fxRatesLBC.isEmpty() && fxRatesLBC.containsKey(currency) && fxRatesLBC.get(currency) > 0.0)	 {
             fxRates = fxRatesLBC;
         }
 
@@ -102,8 +111,12 @@ public class ExchangeRateFactory	{
         if(fxSel == 0)	 {
             fxRates = fxCryptopia;
         }
-        else	 {
+        else if(fxSel == 1)	 {
             fxRates = fxBittrex;
+        } else if(fxSel == 2) {
+            fxRates = fxBinance;
+        } else {
+            fxRates = fxUpbit;
         }
 
         if(fxRates.get(currency) != null && fxRates.get(currency) > 0.0)	 {
@@ -269,6 +282,22 @@ public class ExchangeRateFactory	{
 
     }
 
+    public void setDataBinance(String str) {
+        strBinance = str;
+    }
+
+    public void parseBinance() {
+        getBinance();
+    }
+
+    public void setDataUpbit(String str) {
+        strUpbit = str;
+    }
+
+    public void parseUpbit() {
+        getUpbit();
+    }
+
     private void getCryptopia()	 {
         try {
             JSONObject result = new JSONObject(strCryptopia);
@@ -327,4 +356,30 @@ public class ExchangeRateFactory	{
         }
     }
 
+
+
+    private void getBinance()	 {
+        try {
+            JSONObject jsonObject = new JSONObject(strBinance);
+            if(jsonObject.has("symbol") && jsonObject.getString("symbol").equals("GRSBTC")) {
+                fxBinance.put("BTC", Double.valueOf(jsonObject.getString("price")));
+            }
+
+        } catch (JSONException je) {
+            fxRatesBFX.put("BTC", Double.valueOf(-1.0));
+        }
+    }
+
+    private void getUpbit()	 {
+        try {
+            JSONArray array = new JSONArray(strUpbit);
+            JSONObject jsonObject = array.getJSONObject(0);
+            if(jsonObject.has("code") && jsonObject.getString("code").equals("CRIX.UPBIT.BTC-GRS")) {
+                fxUpbit.put("BTC", Double.valueOf(jsonObject.getString("tradePrice")));
+            }
+
+        } catch (JSONException je) {
+            fxUpbit.put("BTC", Double.valueOf(-1.0));
+        }
+    }
 }
