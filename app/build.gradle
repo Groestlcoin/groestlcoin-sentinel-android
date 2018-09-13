@@ -8,7 +8,7 @@ android {
         applicationId "hashengineering.groestlcoin.samourai.sentinel"
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 43000
+        versionCode 43001
         versionName '3.5.01'
         multiDexEnabled true
     }
@@ -63,6 +63,24 @@ android {
             resValue "string", "app_name", "Groestlcoin Sentinel Staging"
             resValue "string", "version_name", "3.5.01"
         }
+        production_testnet {
+            minSdkVersion 21
+            applicationId 'hashengineering.groestlcoin.samourai.sentinel.testnet'
+            targetSdkVersion 26
+            versionCode 43000
+            versionName '3.501'
+            resValue "string", "app_name", "Groestlcoin Sentinel Testnet"
+            resValue "string", "version_name", "3.5.01"
+        }
+        staging_testnet {
+            minSdkVersion 21
+            applicationId 'hashengineering.groestlcoin.samourai.sentinel.staging.testnet'
+            targetSdkVersion 26
+            versionCode 43000
+            versionName '3.5.01'
+            resValue "string", "app_name", "Groestlcoin Sentinel Staging"
+            resValue "string", "version_name", "3.5.01"
+        }
         /*blackberry {
             minSdkVersion 14
             targetSdkVersion 17
@@ -71,6 +89,15 @@ android {
             resValue "string", "app_name", "Groestlcoin Sentinel"
             resValue "string", "version_name", "3.5.01"
         }*/
+    }
+
+    sourceSets {
+        production_testnet {
+            res.srcDirs = ['src/_testNet/res']
+        }
+        staging_testnet {
+            res.srcDirs = ['src/_testNet/res']
+        }
     }
 
     compileOptions {

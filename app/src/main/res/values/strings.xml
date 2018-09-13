@@ -140,7 +140,7 @@
     <string name="track_new">Track new...</string>
     <string name="received_bitcoin">Received Groestlcoin</string>
 
-    <string name="bitcoin_address">bitcoin address</string>
+    <string name="bitcoin_address">groestlcoin address</string>
     <string name="bech32_address">bech32 Groestlcoin address</string>
 
     <string name="start">Start</string>
