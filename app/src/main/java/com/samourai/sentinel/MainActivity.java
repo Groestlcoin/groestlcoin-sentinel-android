@@ -41,6 +41,13 @@ public class MainActivity extends Activity {
 
     private void doSelectNet()  {
 
+        if(BuildConfig.APPLICATION_ID.contains("testnet")) {
+            SamouraiSentinel.getInstance().setCurrentNetworkParams(TestNet3Params.get());
+        } else {
+            SamouraiSentinel.getInstance().setCurrentNetworkParams(MainNetParams.get());
+        }
+        doMain();
+        /*
         AlertDialog.Builder dlg = new AlertDialog.Builder(this)
                 .setTitle(R.string.app_name)
                 .setMessage(R.string.select_network)
@@ -67,7 +74,7 @@ public class MainActivity extends Activity {
                 });
         if(!isFinishing())    {
             dlg.show();
-        }
+        }*/
 
     }
 
