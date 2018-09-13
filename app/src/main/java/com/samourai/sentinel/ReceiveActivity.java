@@ -529,7 +529,7 @@ public class ReceiveActivity extends Activity {
 
     public String getDisplayUnits() {
 
-        return MonetaryUtil.getInstance().getBTCUnits();
+        return MonetaryUtil.getInstance().getBTCUnits(SamouraiSentinel.getInstance().isTestNet());
 
     }
 
