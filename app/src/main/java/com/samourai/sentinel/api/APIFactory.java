@@ -73,7 +73,8 @@ public class APIFactory	{
 
         for(int i = 0; i < xpubs.length; i++)   {
             try {
-                boolean is_xpub = xpubs[i].startsWith("xpub") || xpubs[i].startsWith("ypub") || xpubs[i].startsWith("zpub");
+                boolean is_xpub = xpubs[i].startsWith("xpub") || xpubs[i].startsWith("ypub") || xpubs[i].startsWith("zpub") ||
+                        xpubs[i].startsWith("tpub") || xpubs[i].startsWith("upub") || xpubs[i].startsWith("vpub");
 
                 StringBuilder url = new StringBuilder(_url);
 
