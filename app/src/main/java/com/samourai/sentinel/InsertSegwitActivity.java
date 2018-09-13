@@ -70,6 +70,8 @@ public class InsertSegwitActivity extends Activity {
 
             String response = null;
             try {
+                String _url = SamouraiSentinel.getInstance().isTestNet() ? Web.SAMOURAI_API2_TESTNET : Web.SAMOURAI_API2;
+
                 StringBuilder args = new StringBuilder();
                 args.append("xpub=");
                 args.append(params[0]);
@@ -77,7 +79,7 @@ public class InsertSegwitActivity extends Activity {
                 args.append("&segwit=bip");
                 args.append(params[1]);
                 Log.d("InsertSegwitActivity", "Segwit:" + args.toString());
-                response = Web.getURL(Web.BLOCKCHAIN_DOMAIN_API + "xpub2&" +args.toString());
+                response = Web.getURL(_url + "xpub2&" +args.toString());
 
                 Log.d("InsertSegwitActivity", "Segwit:" + response);
 
