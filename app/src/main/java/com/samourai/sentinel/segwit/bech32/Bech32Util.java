@@ -46,12 +46,12 @@ public class Bech32Util {
 
         TransactionOutput output = null;
 
-        if(address.toLowerCase().startsWith("tb") || address.toLowerCase().startsWith("bc"))   {
+        if(address.toLowerCase().startsWith("tgrs") || address.toLowerCase().startsWith("grs"))   {
 
             byte[] scriptPubKey = null;
 
             try {
-                Pair<Byte, byte[]> pair = Bech32Segwit.decode(SamouraiSentinel.getInstance().isTestNet() ? "tb" : "bc", address);
+                Pair<Byte, byte[]> pair = Bech32Segwit.decode(SamouraiSentinel.getInstance().isTestNet() ? "tgrs" : "grs", address);
                 scriptPubKey = Bech32Segwit.getScriptPubkey(pair.getLeft(), pair.getRight());
             }
             catch(Exception e) {

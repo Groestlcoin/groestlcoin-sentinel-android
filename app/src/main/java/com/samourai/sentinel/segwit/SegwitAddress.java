@@ -1,5 +1,6 @@
 package com.samourai.sentinel.segwit;
 
+import com.samourai.sentinel.SamouraiSentinel;
 import com.samourai.sentinel.segwit.bech32.Bech32Segwit;
 
 import org.bitcoinj.core.Address;
@@ -78,6 +79,37 @@ public class SegwitAddress {
         buf[1] = (byte)0x14;    // push 20 bytes
         System.arraycopy(hash, 0, buf, 2, hash.length); // keyhash
         buf[22] = (byte)0x87;   // OP_EQUAL
+
+        return new Script(buf);
+    }
+
+    public static Script segWitOutputScript(String address)    {
+
+        Address addr = Address.fromBase58(SamouraiSentinel.getInstance().getCurrentNetworkParams(), address);
+
+        //
+        // OP_HASH160 hash160(redeemScript) OP_EQUAL
+        //
+        byte[] hash = addr.getHash160();
+        byte[] buf = new byte[3 + hash.length];
+        buf[0] = (byte)0xa9;    // HASH160
+        buf[1] = (byte)0x14;    // push 20 bytes
+        System.arraycopy(hash, 0, buf, 2, hash.length); // keyhash
+        buf[22] = (byte)0x87;   // OP_EQUAL
+
+        return new Script(buf);
+    }
+
+    public static Script segWitRedeemScript(String address) {
+        Address addr = Address.fromBase58(SamouraiSentinel.getInstance().getCurrentNetworkParams(), address);
+        //
+        // The P2SH segwit redeemScript is always 22 bytes. It starts with a OP_0, followed by a canonical push of the keyhash (i.e. 0x0014{20-byte keyhash})
+        //
+        byte[] hash = addr.getHash160();
+        byte[] buf = new byte[2 + hash.length];
+        buf[0] = (byte)0x00;  // OP_0
+        buf[1] = (byte)0x14;  // push 20 bytes
+        System.arraycopy(hash, 0, buf, 2, hash.length); // keyhash
 
         return new Script(buf);
     }

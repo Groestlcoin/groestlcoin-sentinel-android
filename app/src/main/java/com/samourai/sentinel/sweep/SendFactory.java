@@ -76,9 +76,21 @@ public class SendFactory	{
 
             try {
                 byte[] scriptBytes = input.getOutpoint().getConnectedPubKeyScript();
-//                String address = new BitcoinScript(scriptBytes).getAddress().toString();
-                String address = new Script(scriptBytes).getToAddress(SamouraiSentinel.getInstance().getCurrentNetworkParams()).toString();
-//                        Log.i("address from script", address);
+                String script = Hex.toHexString(scriptBytes);
+                String address = null;
+                if(Bech32Util.getInstance().isBech32Script(script))    {
+                    try {
+                        address = Bech32Util.getInstance().getAddressFromScript(script);
+                    }
+                    catch(Exception e) {
+                        ;
+                    }
+                }
+                else    {
+                    address = new Script(scriptBytes).getToAddress(SamouraiSentinel.getInstance().getCurrentNetworkParams()).toString();
+                }
+
+                //Log.i("address from script", address);
                 ECKey ecKey = null;
                 try {
                     DumpedPrivateKey pk = new DumpedPrivateKey(SamouraiSentinel.getInstance().getCurrentNetworkParams(), privKeyReader.getKey().getPrivateKeyAsWiF(SamouraiSentinel.getInstance().getCurrentNetworkParams()));

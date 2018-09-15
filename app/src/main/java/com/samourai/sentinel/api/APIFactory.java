@@ -5,6 +5,8 @@ import android.util.Log;
 //import android.util.Log;
 
 import com.samourai.sentinel.SamouraiSentinel;
+import com.samourai.sentinel.segwit.SegwitAddress;
+import com.samourai.sentinel.segwit.bech32.Bech32Segwit;
 import com.samourai.sentinel.segwit.bech32.Bech32Util;
 import com.samourai.sentinel.sweep.FeeUtil;
 import com.samourai.sentinel.sweep.MyTransactionOutPoint;
@@ -13,10 +15,10 @@ import com.samourai.sentinel.sweep.UTXO;
 import com.samourai.sentinel.util.AddressFactory;
 import com.samourai.sentinel.util.Web;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.script.Script;
-import org.bitcoinj.script.ScriptBuilder;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -570,13 +572,19 @@ public class APIFactory	{
 
                     try {
                         String address = null;
-                        if(Bech32Util.getInstance().isBech32Script(script))    {
-                            address = Bech32Util.getInstance().getAddressFromScript(script);
+                        if(Bech32Util.getInstance().isBech32Script(script) || addressDestination.toLowerCase().startsWith("grs") || addressDestination.toLowerCase().startsWith("tgrs"))    {
+                            address = addressDestination; //chainz is broken on scripts //Bech32Util.getInstance().getAddressFromScript(script);
                             Log.d("address parsed:", address);
+                            Pair<Byte, byte[]> pair = Bech32Segwit.decode(SamouraiSentinel.getInstance().isTestNet() ? "tgrs" : "grs", address);
+                            scriptBytes = Bech32Segwit.getScriptPubkey(pair.getLeft(), pair.getRight());
                         }
-                        else    {
+                        else if(Address.fromBase58(SamouraiSentinel.getInstance().getCurrentNetworkParams(), addressDestination).isP2SHAddress()) {
+                            address = addressDestination;
+                            scriptBytes = SegwitAddress.segWitOutputScript(address).getProgram();
+                        } else {
                             address = new Script(scriptBytes).getToAddress(SamouraiSentinel.getInstance().getCurrentNetworkParams()).toString();
                         }
+
 
                         // Construct the output
                         MyTransactionOutPoint outPoint = new MyTransactionOutPoint(txHash, txOutputN, value, scriptBytes, address);
