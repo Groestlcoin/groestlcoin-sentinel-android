@@ -9,7 +9,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 26
         versionCode 43001
-        versionName '3.5.01'
+        versionName '3.5.02'
         multiDexEnabled true
     }
     buildTypes {
@@ -49,10 +49,8 @@ android {
             minSdkVersion 21
             applicationId 'hashengineering.groestlcoin.samourai.sentinel'
             targetSdkVersion 26
-            versionCode 43000
-            versionName '3.501'
             resValue "string", "app_name", "Groestlcoin Sentinel"
-            resValue "string", "version_name", "3.5.01"
+            resValue "string", "version_name", "3.5.02"
         }
         staging {
             minSdkVersion 21
@@ -61,25 +59,22 @@ android {
             versionCode 43000
             versionName '3.5.01'
             resValue "string", "app_name", "Groestlcoin Sentinel Staging"
-            resValue "string", "version_name", "3.5.01"
+            resValue "string", "version_name", "3.5.02"
         }
         production_testnet {
             minSdkVersion 21
             applicationId 'hashengineering.groestlcoin.samourai.sentinel.testnet'
             targetSdkVersion 26
-            versionCode 43000
-            versionName '3.501'
             resValue "string", "app_name", "Groestlcoin Sentinel Testnet"
-            resValue "string", "version_name", "3.5.01"
+            resValue "string", "version_name", "3.5.02"
         }
         staging_testnet {
             minSdkVersion 21
             applicationId 'hashengineering.groestlcoin.samourai.sentinel.staging.testnet'
             targetSdkVersion 26
-            versionCode 43000
-            versionName '3.5.01'
             resValue "string", "app_name", "Groestlcoin Sentinel Staging"
-            resValue "string", "version_name", "3.5.01"
+            resValue "string", "version_name", "3.5.02"
+
         }
         /*blackberry {
             minSdkVersion 14
