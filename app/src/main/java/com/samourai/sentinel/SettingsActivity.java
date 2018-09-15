@@ -48,14 +48,16 @@ public class SettingsActivity extends PreferenceActivity	{
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         Preference aboutPref = (Preference) findPreference("about");
-        aboutPref.setSummary("Groestlcoin Sentinel," + " " + getResources().getString(R.string.version_name));
+        final String summary = getResources().getString(R.string.app_name)
+                + ", " + getResources().getString(R.string.version_name);
+        aboutPref.setSummary(summary);
         aboutPref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference preference) {
 
                 new AlertDialog.Builder(SettingsActivity.this)
                         .setIcon(R.drawable.ic_launcher)
                         .setTitle(R.string.app_name)
-                        .setMessage("Groestlcoin Sentinel," + " " + getResources().getString(R.string.version_name))
+                        .setMessage(summary)
                         .setCancelable(false)
                         .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {

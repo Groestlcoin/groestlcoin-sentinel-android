@@ -172,7 +172,9 @@ public class AppUtil {
                                                                             Toast.makeText(context, R.string.copied_to_clipboard, Toast.LENGTH_SHORT).show();
                                                                         } else {
                                                                             Intent email = new Intent(Intent.ACTION_SEND);
-                                                                            email.putExtra(Intent.EXTRA_SUBJECT, "Groestlcoin Sentinel Wallet backup");
+                                                                            email.putExtra(Intent.EXTRA_SUBJECT, "Groestlcoin Sentinel "+
+                                                                                    (SamouraiSentinel.getInstance().isTestNet() ? "TestNet " : "")
+                                                                                    +"Wallet backup");
                                                                             email.putExtra(Intent.EXTRA_TEXT, encrypted);
                                                                             email.setType("message/rfc822");
                                                                             context.startActivity(Intent.createChooser(email, context.getText(R.string.choose_email_client)));
