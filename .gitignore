@@ -36,5 +36,7 @@ projectFilesBackup/
 app/release/
 app/production/
 app/staging/
-
+app/production_testnet/
+app/blackberry/
+app/blackberry_testnet/
 app/output.json
