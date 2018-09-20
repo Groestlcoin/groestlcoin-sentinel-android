@@ -76,14 +76,22 @@ android {
             resValue "string", "version_name", "3.5.02"
 
         }
-        /*blackberry {
+        blackberry {
             minSdkVersion 14
             targetSdkVersion 17
-            versionCode 19300
+            versionCode 19301
             applicationId "hashengineering.groestlcoin.samourai.sentinel.blackberry"
             resValue "string", "app_name", "Groestlcoin Sentinel"
-            resValue "string", "version_name", "3.5.01"
-        }*/
+            resValue "string", "version_name", "3.5.02"
+        }
+        blackberry_testnet {
+            minSdkVersion 14
+            targetSdkVersion 17
+            versionCode 19301
+            applicationId "hashengineering.groestlcoin.sentinel.blackberry.testnet"
+            resValue "string", "app_name", "Groestlcoin Sentinel Testnet"
+            resValue "string", "version_name", "3.5.02"
+        }
     }
 
     sourceSets {
@@ -92,6 +100,9 @@ android {
         }
         staging_testnet {
             res.srcDirs = ['src/_testNet/res']
+        }
+        blackberry_testnet {
+            res.srcDirs = ['src/blackberry/res']
         }
     }
 
