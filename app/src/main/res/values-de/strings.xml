@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="new_version_message">Willkommen bei Sentinel\n\nSentinel ist deine Wallet, die nur Empfangen kann. Sentinel kann keine Bitcoins senden. Scanne einen XPUB und Sentinel wird die Adressen beobachten, dich über neu eigehende Transaktionen informieren und es dir erlauben, neue Adressen zu generieren, um Bitcoins mit deinem mobilen Gerät zu empfangen.\n\nSentinel ist der einfachste und sicherste Weg, deine Offline-Wallet zu beobachten und Zahlungen darauf zu empfangen.\n\nSentinel kann keine Bitcoins aus deiner Wallet versenden und deine Private Keys werden nie mit Sentinel kommuniziert.</string>
+    <string name="new_version_message">Willkommen bei Sentinel\n\nSentinel ist deine Wallet, die nur Empfangen kann. Sentinel kann keine Groestlcoins senden. Scanne einen XPUB und Sentinel wird die Adressen beobachten, dich über neu eigehende Transaktionen informieren und es dir erlauben, neue Adressen zu generieren, um Groestlcoins mit deinem mobilen Gerät zu empfangen.\n\nSentinel ist der einfachste und sicherste Weg, deine Offline-Wallet zu beobachten und Zahlungen darauf zu empfangen.\n\nSentinel kann keine Groestlcoins aus deiner Wallet versenden und deine Private Keys werden nie mit Sentinel kommuniziert.</string>
 	 
     <string name="decrypting_bip38">BIP38 Passwort wird entschlüsselt. Bitte warten...</string>
 
@@ -71,8 +71,8 @@
     <string name="receive_address_to_share">Diese Empfangsadresse teilen? Wenn sie geteilt wird, kann sie möglicherweise von anderen Programmen gelesen werden.</string>
     <string name="sure_to_delete">Diesen Account wirklich entfernen?</string>
 
-    <string name="enter_xpub">XPUB oder Bitcoin-Adresse eingeben.</string>
-    <string name="xpub_error">Beim Erstellen der Wallet aus deinem XPUB oder deiner Bitcoin-Adresse ist ein Fehler aufgetreten. Bitte nochmal versuchen.</string>
+    <string name="enter_xpub">XPUB oder Groestlcoin-Adresse eingeben.</string>
+    <string name="xpub_error">Beim Erstellen der Wallet aus deinem XPUB oder deiner Groestlcoin-Adresse ist ein Fehler aufgetreten. Bitte nochmal versuchen.</string>
 
     <string name="create_pin">PIN erstellen</string>
     <string name="confirm_pin">PIN bestätigen</string>
@@ -114,7 +114,7 @@
     <string name="bip49_account">BIP49-Account</string>
     <string name="bip84_account">BIP84-Account</string>
     <string name="base58_error">Unbekanntes Format</string>
-    <string name="invalid_entry">Ungültiger XPUB oder ungültige Bitcoin-Adresse</string>
+    <string name="invalid_entry">Ungültiger XPUB oder ungültige Groestlcoin-Adresse</string>
 
     <string name="unknown_xpub">XPUB Tiefe</string>
 
@@ -127,24 +127,24 @@
     <string name="xpub_add_ok">XPUB erfolgreich hinzugefügt</string>
     <string name="xpub_add_ko">XPUB hinzufügen fehlgeschlagen</string>
 
-    <string name="select_bitcoin_address1">Bitcoin-Adresse</string>
-    <string name="select_bitcoin_address2">Einzelne Bitcoin-Adresse</string>
+    <string name="select_bitcoin_address1">Groestlcoin-Adresse</string>
+    <string name="select_bitcoin_address2">Einzelne Groestlcoin-Adresse</string>
 
-    <string name="select_bip44_xpub1">Bitcoin-Wallet</string>
-    <string name="select_bip44_xpub2">Bitcoin-Wallet über XPUB (BIP44)</string>
+    <string name="select_bip44_xpub1">Groestlcoin-Wallet</string>
+    <string name="select_bip44_xpub2">Groestlcoin-Wallet über XPUB (BIP44)</string>
 
-    <string name="select_bip49_xpub1">SegWit-Bitcoin-Wallet</string>
-    <string name="select_bip49_xpub2">Bitcoin-Wallet über SegWit YPUB/ZPUB (BIP49/84)</string>
+    <string name="select_bip49_xpub1">SegWit-Groestlcoin-Wallet</string>
+    <string name="select_bip49_xpub2">Groestlcoin-Wallet über SegWit YPUB/ZPUB (BIP49/84)</string>
 
     <string name="track_new">Folgendes beobachten...</string>
-    <string name="received_bitcoin">Bitcoins erhalten</string>
+    <string name="received_bitcoin">Groestlcoins erhalten</string>
 
-    <string name="bitcoin_address">Bitcoin-Adresse</string>
-    <string name="bech32_address">Bech32-Bitcoin-Adresse</string>
+    <string name="bitcoin_address">Groestlcoin-Adresse</string>
+    <string name="bech32_address">Bech32-Groestlcoin-Adresse</string>
 
     <string name="start">Start</string>
     <string name="get_started">Los geht\'s</string>
-    <string name="add_first_address">Füge eine Bitcoin-Adresse oder einen XPUB hinzu, um Sentinel zu aktivieren</string>
+    <string name="add_first_address">Füge eine Groestlcoin-Adresse oder einen XPUB hinzu, um Sentinel zu aktivieren</string>
 
     <string name="tx_length_error">Sentinel verarbeitet keine Transaktionen mit einer Größe von über 100KB. Bitte versuch deine Transaktion aufzuteilen.</string>
     <string name="tx_hex">Hex-Transaktion</string>

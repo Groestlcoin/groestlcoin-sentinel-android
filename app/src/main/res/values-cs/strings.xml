@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="new_version_message">Vítejte v aplikaci Sentinel\n\nSentinel je bitcoin peněženka zobrazující pouze pohyb na účtech. Sentinel neumí odesílat bitcoiny. Naskenujte jakýkoliv XPUB a Sentinel ho bude hlídat, upozorňovat na nové příchozí transakce a umožní vytváření nových adres pro přijímání bitcoinů.\n\nSentinel je nejjednodušší a nejbezpečnější cesta pro udržování přehledu a přijímání plateb do vaší cold storage peněženky.\n\nSentinel neumí odesílat bitcoiny z peněženky, a privátní klíče nejsou nikdy ukládány v jakékoliv podobě v aplikaci Sentinel.</string>
+    <string name="new_version_message">Vítejte v aplikaci Sentinel\n\nSentinel je Groestlcoin peněženka zobrazující pouze pohyb na účtech. Sentinel neumí odesílat Groestlcoiny. Naskenujte jakýkoliv XPUB a Sentinel ho bude hlídat, upozorňovat na nové příchozí transakce a umožní vytváření nových adres pro přijímání Groestlcoinů.\n\nSentinel je nejjednodušší a nejbezpečnější cesta pro udržování přehledu a přijímání plateb do vaší cold storage peněženky.\n\nSentinel neumí odesílat Groestlcoiny z peněženky, a privátní klíče nejsou nikdy ukládány v jakékoliv podobě v aplikaci Sentinel.</string>
 
     <string name="decrypting_bip38">Dešifrování BIP38 hesla. Chvíli strpení...</string>
 
@@ -23,7 +23,7 @@
     <string name="options_cat_other">Sentinel</string>
 
     <string name="options_currency">Pouliční cena</string>
-    <string name="options_currency2">Fiat cena z localbitcoins.com.</string>
+    <string name="options_currency2">Fiat cena z localGroestlcoins.com.</string>
     <string name="options_blockexplorer">Prohlížeč bloků</string>
     <string name="options_blockexplorer2">Prohlížeč bloků použitý pro zobrazování detailů transakcí.</string>
     <string name="options_export">Exportovat peněženku</string>
@@ -69,8 +69,8 @@
     <string name="receive_address_to_share">Sdílet tuto přijímací adresu? Pokud sdíleno, může být načteno jinými aplikacemi.</string>
     <string name="sure_to_delete">Opravdu chcete smazat tento záznam?</string>
 
-    <string name="enter_xpub">Zadat XPUB nebo bitcoin adresu.</string>
-    <string name="xpub_error">Došlo k chybě vytváření peněženky ze zadaných XPUB/bitcoin adres. Zkuste prosím znovu.</string>
+    <string name="enter_xpub">Zadat XPUB nebo Groestlcoin adresu.</string>
+    <string name="xpub_error">Došlo k chybě vytváření peněženky ze zadaných XPUB/Groestlcoin adres. Zkuste prosím znovu.</string>
 
     <string name="create_pin">Vytvořit PIN kód</string>
     <string name="confirm_pin">Potvrďit PIN kód</string>

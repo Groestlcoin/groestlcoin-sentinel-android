@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="new_version_message">Sentinel\'e hoş geldiniz.\n\nSentinel yalnızca para yatırabileceğiniz bir bitcoin cüzdanıdır. Sentinel bitcoin gönderemez. Herhangi bir XPUB\'ı okutun ve Sentinel nöbette bekleyip sizi gelen tüm yeni işlemler hakkında bilgilendirecek ve bitcoin alabilmeniz için yeni adresler oluşturmanıza izin verecektir.\n\nSentinel fiziksel cüzdanlarınıza gelip giden tüm işlemleri izlemenin en kolay ve güvenli yoludur.\n\nSentinel cüzdanınızdan bitcoin gönderemez ve sizin özel anahtarlarınız hiçbir şekilde Sentinel\'e iletilmez.</string>
+    <string name="new_version_message">Sentinel\'e hoş geldiniz.\n\nSentinel yalnızca para yatırabileceğiniz bir Groestlcoin cüzdanıdır. Sentinel Groestlcoin gönderemez. Herhangi bir XPUB\'ı okutun ve Sentinel nöbette bekleyip sizi gelen tüm yeni işlemler hakkında bilgilendirecek ve Groestlcoin alabilmeniz için yeni adresler oluşturmanıza izin verecektir.\n\nSentinel fiziksel cüzdanlarınıza gelip giden tüm işlemleri izlemenin en kolay ve güvenli yoludur.\n\nSentinel cüzdanınızdan Groestlcoin gönderemez ve sizin özel anahtarlarınız hiçbir şekilde Sentinel\'e iletilmez.</string>
 
     <string name="decrypting_bip38">BIP38 şifresi çözülüyor, lütfen bekleyin...</string>
 
@@ -70,8 +70,8 @@
     <string name="receive_address_to_share">Bu alım adresi paylaşılsın mı? Eğer paylaşılırsa diğer uygulamalar tarafından okunabilir.</string>
     <string name="sure_to_delete">Bu girdiyi silmek istediğinizden emin misiniz?</string>
 
-    <string name="enter_xpub">XPUB veya bitcoin adresinizi girin.</string>
-    <string name="xpub_error">XPUB/Bitcoin adreslerinizden cüzdan oluşturulurken bir hata oluştu. Lütfen yeniden deneyin.</string>
+    <string name="enter_xpub">XPUB veya Groestlcoin adresinizi girin.</string>
+    <string name="xpub_error">XPUB/Groestlcoin adreslerinizden cüzdan oluşturulurken bir hata oluştu. Lütfen yeniden deneyin.</string>
 
     <string name="create_pin">PIN kodu oluştur</string>
     <string name="confirm_pin">PIN kodunuzu doğrulayın</string>
@@ -111,7 +111,7 @@
     <string name="bip49_account">BIP49 hesabı</string>
     <string name="bip84_account">BIP84 hesabı</string>
     <string name="base58_error">Tanımlanamayan biçim</string>
-    <string name="invalid_entry">Geçersiz XPUB veya bitcoin adresi</string>
+    <string name="invalid_entry">Geçersiz XPUB veya Groestlcoin adresi</string>
 
     <string name="unknown_xpub">XPUB derinliği</string>
 
@@ -124,24 +124,24 @@
     <string name="xpub_add_ok">XPUB başarıyla eklendi</string>
     <string name="xpub_add_ko">XPUB ekleme başarısız</string>
 
-    <string name="select_bitcoin_address1">Bitcoin Adresi</string>
-    <string name="select_bitcoin_address2">tek bitcoin adresi</string>
+    <string name="select_bitcoin_address1">Groestlcoin Adresi</string>
+    <string name="select_bitcoin_address2">tek Groestlcoin adresi</string>
 
-    <string name="select_bip44_xpub1">Bitcoin Cüzdanı</string>
-    <string name="select_bip44_xpub2">XPUB (BIP44) ile bitcoin cüzdanı</string>
+    <string name="select_bip44_xpub1">Groestlcoin Cüzdanı</string>
+    <string name="select_bip44_xpub2">XPUB (BIP44) ile Groestlcoin cüzdanı</string>
 
-    <string name="select_bip49_xpub1">Segwit Bitcoin Cüzdanı</string>
-    <string name="select_bip49_xpub2">Segwit YPUB/ZPUB (BIP49/84) ile bitcoin cüzdanı</string>
+    <string name="select_bip49_xpub1">Segwit Groestlcoin Cüzdanı</string>
+    <string name="select_bip49_xpub2">Segwit YPUB/ZPUB (BIP49/84) ile Groestlcoin cüzdanı</string>
 
     <string name="track_new">Yeni izle...</string>
-    <string name="received_bitcoin">Alınan Bitcoin</string>
+    <string name="received_bitcoin">Alınan Groestlcoin</string>
 
-    <string name="bitcoin_address">bitcoin adresi</string>
-    <string name="bech32_address">bech32 bitcoin adresi</string>
+    <string name="bitcoin_address">Groestlcoin adresi</string>
+    <string name="bech32_address">bech32 Groestlcoin adresi</string>
 
     <string name="start">Başla</string>
     <string name="get_started">Başlayalım</string>
-    <string name="add_first_address">Herhangi bir Bitcoin adresini veya XPUB\'ı ekleyin ve Sentinel etkinleştirilecektir</string>
+    <string name="add_first_address">Herhangi bir Groestlcoin adresini veya XPUB\'ı ekleyin ve Sentinel etkinleştirilecektir</string>
 
     <string name="tx_length_error">Samuray, 100KB boyutu üzerindeki işlemleri gerçekleştirmemektedir. Lütfen işleminizi bölmeyi deneyin.</string>
 

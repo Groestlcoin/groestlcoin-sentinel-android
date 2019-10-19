@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="new_version_message">Bienvenue à Sentinel\n\nSentinel est votre portefeuille bitcoin en dépot uniquement. Sentinel ne peut envoyer de bitcoin. Scannez n\'importe quelle clé publique étendue (XPUB) et Sentinel en assurera la surveillance, vous alertant de toutes nouvelles transactions entrantes et vous permettant de créer de nouvelles adresses pour recevoir des bitcoin sur votre mobile.\n\nSentinel est le moyen le plus facile et le plus sécurisé de garder un suivi de votre portefeuille hors-ligne et d\'y recevoir des paiements.\n\nSentinel ne permet pas l\'envoi de bitcoin contenus dans votre portefeuille et vos clés privées ne sont en aucun cas, à travers son utilisation, communiquées.</string>
+    <string name="new_version_message">Bienvenue à Sentinel\n\nSentinel est votre portefeuille Groestlcoin en dépot uniquement. Sentinel ne peut envoyer de Groestlcoin. Scannez n\'importe quelle clé publique étendue (XPUB) et Sentinel en assurera la surveillance, vous alertant de toutes nouvelles transactions entrantes et vous permettant de créer de nouvelles adresses pour recevoir des Groestlcoin sur votre mobile.\n\nSentinel est le moyen le plus facile et le plus sécurisé de garder un suivi de votre portefeuille hors-ligne et d\'y recevoir des paiements.\n\nSentinel ne permet pas l\'envoi de Groestlcoin contenus dans votre portefeuille et vos clés privées ne sont en aucun cas, à travers son utilisation, communiquées.</string>
 
     <string name="decrypting_bip38">Déchiffrement mot de passe BIP38. Veuillez patienter...</string>
 
@@ -71,8 +71,8 @@
     <string name="receive_address_to_share">Partager cette adresse de réception? Si oui, elle pourrait être lue par d\'autres applications.</string>
     <string name="sure_to_delete">Êtes-vous sûr de vouloir annuler cette saisie?</string>
 
-    <string name="enter_xpub">Entrer un clé publique étendue ou une adresse bitcoin.</string>
-    <string name="xpub_error">Erreur survenue lors de la création de votre portefeuille à partir des clés publiques étendues/adresses bitcoin. Veuillez réessayer.</string>
+    <string name="enter_xpub">Entrer un clé publique étendue ou une adresse Groestlcoin.</string>
+    <string name="xpub_error">Erreur survenue lors de la création de votre portefeuille à partir des clés publiques étendues/adresses Groestlcoin. Veuillez réessayer.</string>
 
     <string name="create_pin">Créer un code PIN</string>
     <string name="confirm_pin">Confirmer code PIN</string>
@@ -114,7 +114,7 @@
     <string name="bip49_account">Compte BIP49</string>
     <string name="bip84_account">Compte BIP84</string>
     <string name="base58_error">Format non reconnu</string>
-    <string name="invalid_entry">Clé publique étendue ou adresse bitcoin invalides</string>
+    <string name="invalid_entry">Clé publique étendue ou adresse Groestlcoin invalides</string>
 
     <string name="unknown_xpub">Profondeur clé publique étendue</string>
 
@@ -127,24 +127,24 @@
     <string name="xpub_add_ok">Ajout clé publique étendue réussi</string>
     <string name="xpub_add_ko">Échec ajout clé publique étendue</string>
 
-    <string name="select_bitcoin_address1">Adresse bitcoin</string>
-    <string name="select_bitcoin_address2">Adresse bitcoin unique</string>
+    <string name="select_bitcoin_address1">Adresse Groestlcoin</string>
+    <string name="select_bitcoin_address2">Adresse Groestlcoin unique</string>
 
-    <string name="select_bip44_xpub1">Portefeuille Bitcoin</string>
-    <string name="select_bip44_xpub2">Portefeuille Bitcoin via clé publique étendue (BIP44)</string>
+    <string name="select_bip44_xpub1">Portefeuille Groestlcoin</string>
+    <string name="select_bip44_xpub2">Portefeuille Groestlcoin via clé publique étendue (BIP44)</string>
 
-    <string name="select_bip49_xpub1">Portefeuille Bitcoin Segwit</string>
-    <string name="select_bip49_xpub2">Portefeuille Bitcoin via Segwit YPUB/ZPUB (BIP49/84)</string>
+    <string name="select_bip49_xpub1">Portefeuille Groestlcoin Segwit</string>
+    <string name="select_bip49_xpub2">Portefeuille Groestlcoin via Segwit YPUB/ZPUB (BIP49/84)</string>
 
     <string name="track_new">Suivre nouvelle...</string>
-    <string name="received_bitcoin">Bitcoin reçus</string>
+    <string name="received_bitcoin">Groestlcoin reçus</string>
 
-    <string name="bitcoin_address">Adresse bitcoin</string>
-    <string name="bech32_address">Adresse bitcoin bech32</string>
+    <string name="bitcoin_address">Adresse Groestlcoin</string>
+    <string name="bech32_address">Adresse Groestlcoin bech32</string>
 
     <string name="start">Démarrer</string>
     <string name="get_started">Commencer</string>
-    <string name="add_first_address">Ajouter n\'importe quelle clé publique étendue ou adresse bitcoin et Sentinel sera activé</string>
+    <string name="add_first_address">Ajouter n\'importe quelle clé publique étendue ou adresse Groestlcoin et Sentinel sera activé</string>
 
     <string name="tx_length_error">Samourai ne permet pas les transactions de taille supérieure à 100KB. Veuillez essayer de fractionner votre transaction en plusieurs montants.</string>
     <string name="tx_hex">Transaction hex</string>

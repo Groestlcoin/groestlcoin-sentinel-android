@@ -22,7 +22,7 @@
     <string name="options_cat_other">Sentinel</string>
 
     <string name="options_currency">Kurssi</string>
-    <string name="options_currency2">Valuuttakurssi lähteestä localbitcoins.com.</string>
+    <string name="options_currency2">Valuuttakurssi lähteestä localGroestlcoins.com.</string>
     <string name="options_blockexplorer">Lohkoketjun seuranta</string>
     <string name="options_blockexplorer2">Lohkoketjun transaktioiden seuraamisen lähde.</string>
     <string name="options_export">Vie lompakko</string>
