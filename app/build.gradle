@@ -2,14 +2,14 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.3'
     flavorDimensions "versionCode"
     defaultConfig {
         applicationId "hashengineering.groestlcoin.samourai.sentinel"
         minSdkVersion 21
-        targetSdkVersion 26
-        versionCode 43001
-        versionName '3.5.02'
+        targetSdkVersion 28
+        versionCode 48000
+        versionName '3.5.06'
         multiDexEnabled true
     }
     buildTypes {
@@ -48,32 +48,29 @@ android {
         production {
             minSdkVersion 21
             applicationId 'hashengineering.groestlcoin.samourai.sentinel'
-            targetSdkVersion 26
+            targetSdkVersion 2
             resValue "string", "app_name", "Groestlcoin Sentinel"
-            resValue "string", "version_name", "3.5.02"
+            resValue "string", "version_name", "3.5.06"
         }
         staging {
             minSdkVersion 21
             applicationId 'hashengineering.groestlcoin.samourai.sentinel.staging'
-            targetSdkVersion 26
-            versionCode 43000
-            versionName '3.5.01'
             resValue "string", "app_name", "Groestlcoin Sentinel Staging"
-            resValue "string", "version_name", "3.5.02"
+            resValue "string", "version_name", "3.5.06"
         }
         production_testnet {
             minSdkVersion 21
             applicationId 'hashengineering.groestlcoin.samourai.sentinel.testnet'
             targetSdkVersion 26
             resValue "string", "app_name", "Groestlcoin Sentinel Testnet"
-            resValue "string", "version_name", "3.5.02"
+            resValue "string", "version_name", "3.5.06"
         }
         staging_testnet {
             minSdkVersion 21
             applicationId 'hashengineering.groestlcoin.samourai.sentinel.staging.testnet'
             targetSdkVersion 26
             resValue "string", "app_name", "Groestlcoin Sentinel Staging"
-            resValue "string", "version_name", "3.5.02"
+            resValue "string", "version_name", "3.5.06"
 
         }
         blackberry {
@@ -82,7 +79,7 @@ android {
             versionCode 19301
             applicationId "hashengineering.groestlcoin.samourai.sentinel.blackberry"
             resValue "string", "app_name", "Groestlcoin Sentinel"
-            resValue "string", "version_name", "3.5.02"
+            resValue "string", "version_name", "3.5.06"
         }
         blackberry_testnet {
             minSdkVersion 14
