@@ -1,7 +1,8 @@
 apply plugin: 'com.android.application'
+apply plugin: 'androidsvgdrawable'
 
 android {
-    compileSdkVersion 26
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
     flavorDimensions "versionCode"
     defaultConfig {
@@ -48,7 +49,7 @@ android {
         production {
             minSdkVersion 21
             applicationId 'hashengineering.groestlcoin.samourai.sentinel'
-            targetSdkVersion 2
+            targetSdkVersion 28
             resValue "string", "app_name", "Groestlcoin Sentinel"
             resValue "string", "version_name", "3.5.06"
         }
@@ -61,22 +62,19 @@ android {
         production_testnet {
             minSdkVersion 21
             applicationId 'hashengineering.groestlcoin.samourai.sentinel.testnet'
-            targetSdkVersion 26
             resValue "string", "app_name", "Groestlcoin Sentinel Testnet"
             resValue "string", "version_name", "3.5.06"
         }
         staging_testnet {
             minSdkVersion 21
             applicationId 'hashengineering.groestlcoin.samourai.sentinel.staging.testnet'
-            targetSdkVersion 26
             resValue "string", "app_name", "Groestlcoin Sentinel Staging"
             resValue "string", "version_name", "3.5.06"
-
         }
         blackberry {
             minSdkVersion 14
             targetSdkVersion 17
-            versionCode 19301
+            versionCode 19302
             applicationId "hashengineering.groestlcoin.samourai.sentinel.blackberry"
             resValue "string", "app_name", "Groestlcoin Sentinel"
             resValue "string", "version_name", "3.5.06"
@@ -84,7 +82,7 @@ android {
         blackberry_testnet {
             minSdkVersion 14
             targetSdkVersion 17
-            versionCode 19301
+            versionCode 19302
             applicationId "hashengineering.groestlcoin.sentinel.blackberry.testnet"
             resValue "string", "app_name", "Groestlcoin Sentinel Testnet"
             resValue "string", "version_name", "3.5.02"
@@ -131,4 +129,20 @@ dependencies {
         transitive = true
     }
     implementation 'com.yanzhenjie.zbar:camera:1.0.0'
+}
+
+task svgToPngMipmap(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
+    from = files('graphics/mipmap')
+    to = file('src/main/res')
+    targetedDensities = ['hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
+    outputFormat = 'PNG'
+    outputType = 'mipmap'
+}
+
+task svgToPngMipmapTestnet(type: fr.avianey.androidsvgdrawable.gradle.SvgDrawableTask) {
+    from = files('graphics/mipmap-testnet')
+    to = file('src/_testNet/res')
+    targetedDensities = ['hdpi', 'xhdpi', 'xxhdpi', 'xxxhdpi']
+    outputFormat = 'PNG'
+    outputType = 'mipmap'
 }

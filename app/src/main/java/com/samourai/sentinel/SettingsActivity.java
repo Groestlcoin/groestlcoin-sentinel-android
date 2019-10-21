@@ -55,7 +55,7 @@ public class SettingsActivity extends PreferenceActivity	{
             public boolean onPreferenceClick(Preference preference) {
 
                 new AlertDialog.Builder(SettingsActivity.this)
-                        .setIcon(R.drawable.ic_launcher)
+                        .setIcon(R.drawable.ic_app_color)
                         .setTitle(R.string.app_name)
                         .setMessage(summary)
                         .setCancelable(false)

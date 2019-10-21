@@ -216,7 +216,7 @@ public class WebSocketHandler {
 //                                                text += " from " + in_addr;
                                             }
 
-                                            NotificationsFactory.getInstance(context).setNotification(title, marquee, text, R.drawable.ic_launcher, MainActivity2.class, 1000);
+                                            NotificationsFactory.getInstance(context).setNotification(title, marquee, text, R.drawable.ic_app_color, MainActivity2.class, 1000);
                                         }
 
                                         updateBalance(isRBF ? hash : null);

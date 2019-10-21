@@ -17,4 +17,8 @@
     <color name="white">#fafafa</color>
     <color name="blue_semi_transparent_pressed">#80738ffe</color>
 
+    <!-- app icon -->
+    <color name="appicon_gradient_start">#00A4BC</color>
+    <color name="appicon_gradient_end">#0085A0</color>
+
 </resources>
