@@ -18,7 +18,6 @@ public class Web	{
     public static final String LBC_EXCHANGE_URL = "https://localbitcoins.com/bitcoinaverage/ticker-all-currencies/";
     public static final String BTCe_EXCHANGE_URL = "https://wex.nz/api/3/ticker/";
     public static final String BFX_EXCHANGE_URL = "https://api.bitfinex.com/v1/pubticker/btcusd";
-    public static final String CRYPTOPIA_EXCHANGE_URL = "https://www.cryptopia.co.nz/api/GetMarketHistory/4221";
     public static final String BITTREX_EXCHANGE_URL = "https://bittrex.com/api/v1.1/public/getmarkethistory?market=BTC-GRS&count=25";
     public static final String BINANCE_EXCHANGE_URL = "https://api.binance.com/api/v1/ticker/price?symbol=GRSBTC";
     public static final String UPBIT_EXCHANGE_URL = "https://crix-api.upbit.com/v1/crix/trades/ticks?code=CRIX.UPBIT.BTC-GRS";

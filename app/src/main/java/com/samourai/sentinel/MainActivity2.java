@@ -331,16 +331,6 @@ public class MainActivity2 extends Activity {
 
                 response = null;
                 try {
-                    response = Web.getURL(Web.CRYPTOPIA_EXCHANGE_URL);
-                    ExchangeRateFactory.getInstance(MainActivity2.this).setDataCryptopia(response);
-                    ExchangeRateFactory.getInstance(MainActivity2.this).parseCryptopia();
-                }
-                catch(Exception e) {
-                    e.printStackTrace();
-                }
-
-                response = null;
-                try {
                     response = Web.getURL(Web.BITTREX_EXCHANGE_URL);
                     ExchangeRateFactory.getInstance(MainActivity2.this).setDataBittrex(response);
                     ExchangeRateFactory.getInstance(MainActivity2.this).parseBittrex();
