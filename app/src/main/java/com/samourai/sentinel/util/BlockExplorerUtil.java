@@ -4,7 +4,7 @@ public class BlockExplorerUtil {
 
     private static CharSequence[] blockExplorers = { "Chainz", "Groestlsight", "Blockbook" };
     private static CharSequence[] blockExplorerUrls = { "https://chainz.cryptoid.info/grs/tx.dws?", "http://groestlsight.groestlcoin.org/tx/", "https://blockbook.groestlcoin.org/tx/"};
-    private static CharSequence[] blockExplorerUrlsTest = { "https://chainz.cryptoid.info/grs-test/tx.dws?", "http://groestlsight-test.groestlcoin.org/tx/", "https://blockbook.groestlcoin.org/tx/"};
+    private static CharSequence[] blockExplorerUrlsTest = { "https://chainz.cryptoid.info/grs-test/tx.dws?", "http://groestlsight-test.groestlcoin.org/tx/", "https://blockbook-test.groestlcoin.org/tx/"};
 
     private static BlockExplorerUtil instance = null;
 
